@@ -19,18 +19,25 @@ require_once "../configuracao/inicia_cfg.php"; //inicia configuracoes
 
 global $db;
 
-$sql = "SELECT OFERTAS.*, STATUS.DESCRICAO STATUS_DESC
-		FROM $ofertas_table OFERTAS, $status_table STATUS
-		WHERE OFERTAS.STATUS = STATUS.ID";
-$result = $db->query($sql);
-$num_ofertas = $db->num_rows($result);
-
 if (isset($_POST[ativa_oferta])) {
 	
 	$sql = "UPDATE $ofertas_table SET STATUS = 2, DATA_ATIVACAO = NOW() WHERE ID = " . $_POST[id_ativa] . " AND STATUS = 1";
 	$db->query($sql);
 	
 }
+
+if (isset($_POST[apaga_oferta])) {
+	
+	$sql = "DELETE FROM $ofertas_table WHERE ID = " . $_POST[id_apaga] . " AND STATUS = 1";
+	$db->query($sql);
+	
+}
+
+$sql = "SELECT OFERTAS.*, STATUS.DESCRICAO STATUS_DESC
+		FROM $ofertas_table OFERTAS, $status_table STATUS
+		WHERE OFERTAS.STATUS = STATUS.ID";
+$result = $db->query($sql);
+$num_ofertas = $db->num_rows($result);
 
 echo "	<!DOCTYPE html>
 			<html>
@@ -84,6 +91,22 @@ echo "	<!DOCTYPE html>
 							</div>
 						</div>
 					</div>
+					
+					<div id='alerta_apagar' class='caixa_alerta'>
+						<div class='mensagem_alerta'>Mensagem de Confirmação</div>
+						<div class='mensagem_alerta' style='background-color:#BF0000;font-size:1.2em;font-weight:normal;border-radius:0px;border-bottom-left-radius:6px;border-bottom-right-radius:6px'>
+							<div style='position:relative;float:left'>
+								Tem certeza que deseja apagar a oferta selecionada?
+							</div>
+							<div style='position:relative;float:left;width:100%;margin-top:6px;text-align:center;'>
+								<form id='formApagaOferta' name='form_apaga_oferta' method='post' action='" . $_SERVER['PHP_SELF'] . "'>
+									<input type='hidden' id='id_apaga' name='id_apaga' value='' />
+									<input id='apaga_oferta' name='apaga_oferta' type='submit' class='button_padrao' value='Sim' />
+									<input id='cancela' name='cancela' type='button' class='button_padrao' value='Não' onclick=\"display_div('cover','none');display_div('alerta_apagar','none');document.getElementById('id_apaga').value = ''\" />
+								</form>
+							</div>
+						</div>
+					</div>
 				
 					<div id='wrap'>
 						<div class='caixas_submain' style='margin-top:20px;overflow:auto;padding-bottom:80px;'>";
@@ -131,7 +154,7 @@ echo "									<div style='position:relative;float:left;width:100%;background-co
 												if ($oferta['STATUS'] == 1) {
 													echo "	<img src='../imagens/botao_editar.png' hspace='2' />
 															<img src='../imagens/botao_ativar.png' hspace='2' style='cursor:pointer' title='Ativar' onclick=\"display_div('cover','block');display_div('alerta_ativar','block');document.getElementById('id_ativa').value = '" . $oferta['ID'] . "'\" />
-															<img src='../imagens/botao_deletar.png' hspace='2' />";
+															<img src='../imagens/botao_deletar.png' hspace='2' style='cursor:pointer' title='Apagar' onclick=\"display_div('cover','block');display_div('alerta_apagar','block');document.getElementById('id_apaga').value = '" . $oferta['ID'] . "'\" />";
 												}
 												
 echo "										</div>

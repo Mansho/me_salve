@@ -315,3 +315,24 @@ img {
 	border-top-left-radius:6px;
 	border-top-right-radius:6px;
 }
+
+.caixa_imagem {
+	position:relative;
+	float:left;
+	width:99%;
+	background-color:#D90000;
+	padding:2px;
+	border:1px solid #EB0000;
+	border-radius:2px;
+	margin-top:3px;
+}
+
+.imagem_edita_oferta {
+	position:relative;
+	float:left;
+	width:100%;
+	height:54px;
+	background:#CCC no-repeat;
+	background-size:100% 100%;
+	border-radius:4px;
+}
