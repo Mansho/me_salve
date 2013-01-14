@@ -19,7 +19,7 @@ require_once "../comum/funcoes.php";
 
 global $db;
 
-if (isset($_POST[salva_oferta])) {
+if (isset($_POST[atualiza_oferta])) {
 	
 	$now = date("Y-m-d H:i");
 	$now = str_replace("-","",$now);
@@ -28,77 +28,77 @@ if (isset($_POST[salva_oferta])) {
 	
 	if (isset($_POST[campo_data_ativacao])) {
 		$campo_data_ativacao = strtotime($_POST[campo_data_ativacao]);
-		$campo_data_ativacao = date("Y-m-d H:i",$campo_data_ativacao);
-		$campo_data_ativacao = str_replace("-","",$campo_data_ativacao);
+		$campo_data_ativacao2 = date("Y-m-d H:i",$campo_data_ativacao);
+		$campo_data_ativacao = str_replace("-","",$campo_data_ativacao2);
 		$campo_data_ativacao = str_replace(" ","",$campo_data_ativacao);
 		$campo_data_ativacao = str_replace(":","",$campo_data_ativacao);
 	}
 	
 	$campo_data_encerramento = strtotime($_POST[campo_data_encerramento]);
-	$campo_data_encerramento = date("Y-m-d H:i",$campo_data_encerramento);
-	$campo_data_encerramento = str_replace("-","",$campo_data_encerramento);
+	$campo_data_encerramento2 = date("Y-m-d H:i",$campo_data_encerramento);
+	$campo_data_encerramento = str_replace("-","",$campo_data_encerramento2);
 	$campo_data_encerramento = str_replace(" ","",$campo_data_encerramento);
 	$campo_data_encerramento = str_replace(":","",$campo_data_encerramento);
 	
 	if (($_POST[campo_data_encerramento] == '') || ($_POST[campo_valor_real] == '') || ($_POST[campo_valor_desconto] == '') || ($_POST[campo_minimo_cupons] == '') || ($_POST[campo_maximo_cupons] == '') || ($_POST[campo_regiao] == '')) {
-    	header("Location: registra_leilao.php?error=1");
+    	header("Location: edita_oferta.php?error=1");
         exit;
 	}
 	
 	if (($_POST[campo_titulo] == '') || ($_POST[campo_titulo] == 'Digite aqui um título para o seu anúncio')) {
-    	header("Location: registra_leilao.php?error=2");
+    	header("Location: edita_oferta.php?error=2");
         exit;
 	}
 	
 	if (($campo_data_ativacao < $now) || ($campo_data_encerramento < $now)){
-		header("Location: registra_leilao.php?error=3");
+		header("Location: " . $_SERVER['HTTP_REFERER'] . "&error=3");
        	exit;
 	}
 		
 	if ($campo_data_ativacao > $campo_data_encerramento){
-		header("Location: registra_leilao.php?error=4");
+		header("Location: " . $_SERVER['HTTP_REFERER'] . "&error=4");
        	exit;
 	}
 	
 	if ($_POST[campo_valor_real] <= $_POST[campo_valor_desconto]){
-		header("Location: registra_leilao.php?error=5");
+		header("Location: " . $_SERVER['HTTP_REFERER'] . "&error=5");
        	exit;
 	}
 	
 	if ($_POST[campo_maximo_cupons] < $_POST[campo_minimo_cupons]){
-		header("Location: registra_leilao.php?error=6");
+		header("Location: " . $_SERVER['HTTP_REFERER'] . "&error=6");
        	exit;
 	}
+	
+	$sql = "UPDATE $ofertas_table SET DATA_ATIVACAO = '$campo_data_ativacao2', DATA_ENCERRAMENTO = '$campo_data_encerramento2', VALOR_REAL = '$_POST[campo_valor_real]', VALOR_DESCONTO = '$_POST[campo_valor_desconto]', MINIMO_CUPONS = '$_POST[campo_minimo_cupons]', MAXIMO_CUPONS =  '$_POST[campo_maximo_cupons]', REGIAO = '$_POST[campo_regiao]', TITULO_OFERTA = '$_POST[campo_titulo]'";
 	
 	$foto1 = $_FILES["campo_foto1"];
 	
 	if (!empty($foto1["name"])) {
 		$foto1 = insereImagem($_FILES["campo_foto1"]);
+		$sql .= ", FOTO1 = '$foto1'";
 	}
-	else {
-		$foto1 = "anjos.jpg";
-	}
-	
+
+
 	$foto2 = $_FILES["campo_foto2"];
 	
 	if (!empty($foto2["name"])) {
 		$foto2 = insereImagem($_FILES["campo_foto2"]);
+		$sql .= ", FOTO2 = '$foto2'";
 	}
-	else {
-		$foto2 = NULL;
-	}
+	
 	
 	$foto3 = $_FILES["campo_foto3"];
 	
 	if (!empty($foto3["name"])) {
 		$foto3 = insereImagem($_FILES["campo_foto3"]);
-	}
-	else {
-		$foto3 = NULL;
+		$sql .= ", FOTO3 = '$foto3'";
 	}
 	
+	
 	// Insere os dados no banco
-	$sql = "INSERT INTO $ofertas_table VALUES (NULL, '1', '1', '$now', '$campo_data_ativacao', '$campo_data_encerramento', '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
+	//$sql = "UPDATE $ofertas_table SET DATA_ATIVACAO = '$campo_data_ativacao2', DATA_ENCERRAMENTO = '$campo_data_encerramento2', VALOR_REAL = '$_POST[campo_valor_real]', VALOR_DESCONTO = '$_POST[campo_valor_desconto]', MINIMO_CUPONS = '$_POST[campo_minimo_cupons]', MAXIMO_CUPONS =  '$_POST[campo_maximo_cupons]', REGIAO = '$_POST[campo_regiao]', TITULO_OFERTA = '$_POST[campo_titulo]', FOTO1 = '$foto1', FOTO2 = '$foto2', FOTO3 = '$foto3' WHERE ID = $_POST[id_oferta] AND STATUS = 1";
+	$sql .= " WHERE ID = $_POST[id_oferta] AND STATUS = 1";
 	$db->query($sql);
  
 
@@ -106,7 +106,7 @@ if (isset($_POST[salva_oferta])) {
 
 if ($_GET[id]) {
 
-$sql = "SELECT OFERTAS.*, REGIAO.ID REGIAO_ID, REGIAO.CIDADE REGIAO_DESC
+$sql = "SELECT OFERTAS.*, DATE_FORMAT(OFERTAS.DATA_ATIVACAO, '%d-%m-%Y %H:%i') DATA_ATIVACAO, DATE_FORMAT(OFERTAS.DATA_ENCERRAMENTO, '%d-%m-%Y %H:%i') DATA_ENCERRAMENTO, REGIAO.ID REGIAO_ID, REGIAO.CIDADE REGIAO_DESC
 		FROM $ofertas_table OFERTAS, $cidades_table REGIAO
 		WHERE OFERTAS.REGIAO = REGIAO.ID
 		AND OFERTAS.ID = " . $_GET[id];
@@ -254,10 +254,11 @@ echo "	<!DOCTYPE html>
 					<div id='wrap'>
 						<div class='caixas_submain' style='margin-top:20px;overflow:auto;padding-bottom:80px;'>";
 						
-							require "../comum/cabecalho.php";
+							require "../comum/cabecalho_down.php";
 						
-echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" . $_SERVER['PHP_SELF'] . "' enctype='multipart/form-data'>	
-							<div style='position:relative;float:left;width:100%;margin-top:110px;'>
+echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" . $_SERVER['PHP_SELF'] . "' enctype='multipart/form-data'>
+							<input type='hidden' name='id_oferta' value='" . $_GET[id] . "' />
+							<div style='position:relative;float:left;width:100%;margin-top:10px;'>
 								<div class='div_campo_titulo'>
 									<input id='titulo' name='campo_titulo' type='text' class='campo_titulo' value='" . $oferta['TITULO_OFERTA'] . "' onclick='apaga_titulo()' />
 								</div>
@@ -293,11 +294,11 @@ echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" .
 								<div style='position:relative;float:left;width:100%;margin-top:12px'>
 									<div style='position:relative;float:left;width:50%;'>
 										<label for='campo_valor_real' class='label_padrao'>Valor sem desconto</label>
-										<input id='valor_real' name='campo_valor_real' type='text' class='input_padrao' value='" . $oferta['VALOR_REAL'] . "' />
+										<input id='valor_real' name='campo_valor_real' type='text' class='input_padrao' value='" . substr($oferta['VALOR_REAL'],0,-3) . "' />
 									</div>
 									<div style='position:relative;float:left;width:50%;'>
 										<label for='campo_valor_desconto' class='label_padrao'>Valor com desconto</label>
-										<input id='valor_desconto' name='campo_valor_desconto' type='text' class='input_padrao' value='" . $oferta['VALOR_DESCONTO'] . "' />
+										<input id='valor_desconto' name='campo_valor_desconto' type='text' class='input_padrao' value='" . substr($oferta['VALOR_DESCONTO'],0,-3) . "' />
 									</div>
 								</div>
 								<div style='position:relative;float:left;width:100%;margin-top:12px'>
@@ -335,20 +336,20 @@ echo "									</select>
 								<div style='position:relative;float:left;width:32.5%;margin-top:24px;'>
 									<label class='label_padrao' style='width:99%'>Fotos</label>
 									<div class='caixa_imagem'>
-										<div class='imagem_edita_oferta' style=\"background: url('../imagens/" . $oferta['FOTO1'] . "') no-repeat;background-size:100% 100%;\"></div>
+										<div class='imagem_edita_oferta' style=\"background: url('../imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat;background-size:100% 100%;\"></div>
 										<input type='file' name='campo_foto1' style='width:100%;margin-top:3px;' />
 									</div>
 									<div class='caixa_imagem'>
-										<div class='imagem_edita_oferta' style=\"background: url('../imagens/" . $oferta['FOTO2'] . "') no-repeat;background-size:100% 100%;\"></div>
+										<div class='imagem_edita_oferta' style=\"background: url('../imagens/fotos/" . $oferta['FOTO2'] . "') no-repeat;background-size:100% 100%;\"></div>
 										<input type='file' name='campo_foto2' style='width:100%;margin-top:3px;' />
 									</div>
 									<div class='caixa_imagem'>
-										<div class='imagem_edita_oferta' style=\"background: url('../imagens/" . $oferta['FOTO3'] . "') no-repeat;background-size:100% 100%;\"></div>
+										<div class='imagem_edita_oferta' style=\"background: url('../imagens/fotos/" . $oferta['FOTO3'] . "') no-repeat;background-size:100% 100%;\"></div>
 										<input type='file' name='campo_foto3' style='width:100%;margin-top:3px;' />
 									</div>
 								</div>
 								<div class='div_campo_titulo' style='width:97%;padding:1.5%;background-position:left;margin-top:24px;text-align:right'>
-									<input id='salva_oferta' name='salva_oferta' type='submit' class='button_padrao' value='Salvar' />
+									<input id='atualiza_oferta' name='atualiza_oferta' type='submit' class='button_padrao' value='Salvar' />
 								</div>
 							</div>
 						</form>

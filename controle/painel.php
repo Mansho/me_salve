@@ -36,6 +36,19 @@ if (isset($_POST[apaga_oferta])) {
 $sql = "SELECT OFERTAS.*, STATUS.DESCRICAO STATUS_DESC
 		FROM $ofertas_table OFERTAS, $status_table STATUS
 		WHERE OFERTAS.STATUS = STATUS.ID";
+		
+if ($_GET[titulo]) {
+	$sql .= " ORDER BY OFERTAS.TITULO_OFERTA " . $_GET[titulo];
+}
+
+if ($_GET[status]) {
+	$sql .= " ORDER BY OFERTAS.STATUS " . $_GET[status];
+}
+
+if ($_GET[data_fim]) {
+	$sql .= " ORDER BY OFERTAS.DATA_ENCERRAMENTO " . $_GET[data_fim];
+}
+		
 $result = $db->query($sql);
 $num_ofertas = $db->num_rows($result);
 
@@ -111,14 +124,41 @@ echo "	<!DOCTYPE html>
 					<div id='wrap'>
 						<div class='caixas_submain' style='margin-top:20px;overflow:auto;padding-bottom:80px;'>";
 						
-							require "../comum/cabecalho.php";
+							require "../comum/cabecalho_down.php";
 						
-echo "						<div style='position:relative;float:left;width:100%;margin-top:110px;'>
+echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;'>
 								<div class='caixa_padrao'>
 									<div class='cabeca_caixa_padrao'>
-										<div style='position:relative;float:left;width:22%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>Título</div>
-										<div style='position:relative;float:left;width:12%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>Estado</div>
-										<div style='position:relative;float:left;width:15%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>Encerramento</div>
+										<div style='position:relative;float:left;width:22%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>";
+											
+											if ($_GET[titulo] == 'desc') {
+												echo "<a href='" . $_SERVER['PHP_SELF'] . "?titulo=asc' style='color:#FFF'>Título &#9660;</a>";
+											}
+											else {
+												echo "<a href='" . $_SERVER['PHP_SELF'] . "?titulo=desc' style='color:#FFF'>Título &#9650;</a>";
+											}
+											
+echo "									</div>
+										<div style='position:relative;float:left;width:12%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>";
+										
+											if ($_GET[status] == 'desc') {
+												echo "<a href='" . $_SERVER['PHP_SELF'] . "?status=asc' style='color:#FFF'>Estado &#9660;</a>";
+											}
+											else {
+												echo "<a href='" . $_SERVER['PHP_SELF'] . "?status=desc' style='color:#FFF'>Estado &#9650;</a>";
+											}
+										
+echo "									</div>
+										<div style='position:relative;float:left;width:15%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>";
+										
+											if ($_GET[data_fim] == 'desc') {
+												echo "<a href='" . $_SERVER['PHP_SELF'] . "?data_fim=asc' style='color:#FFF'>Encerramento &#9660;</a>";
+											}
+											else {
+												echo "<a href='" . $_SERVER['PHP_SELF'] . "?data_fim=desc' style='color:#FFF'>Encerramento &#9650;</a>";
+											}
+										
+echo "									</div>
 										<div style='position:relative;float:left;width:12%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>Valores</div>
 										<div style='position:relative;float:left;width:15%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>Cupons</div>
 										<div style='position:relative;float:left;width:12%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>Ações</div>
@@ -152,7 +192,7 @@ echo "									<div style='position:relative;float:left;width:100%;background-co
 											<div style='position:relative;float:left;width:12%;padding:6px 8px 2px 8px;font-size:1.2em;color:#6A0000;'>";
 												
 												if ($oferta['STATUS'] == 1) {
-													echo "	<img src='../imagens/botao_editar.png' hspace='2' />
+													echo "	<a href='edita_oferta.php?id=" . $oferta['ID'] . "' title='Editar'><img src='../imagens/botao_editar.png' hspace='2' /></a>
 															<img src='../imagens/botao_ativar.png' hspace='2' style='cursor:pointer' title='Ativar' onclick=\"display_div('cover','block');display_div('alerta_ativar','block');document.getElementById('id_ativa').value = '" . $oferta['ID'] . "'\" />
 															<img src='../imagens/botao_deletar.png' hspace='2' style='cursor:pointer' title='Apagar' onclick=\"display_div('cover','block');display_div('alerta_apagar','block');document.getElementById('id_apaga').value = '" . $oferta['ID'] . "'\" />";
 												}

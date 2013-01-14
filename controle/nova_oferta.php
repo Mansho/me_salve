@@ -20,8 +20,8 @@ require_once "../comum/funcoes.php";
 global $db;
 
 $sql = "SELECT * FROM $cidades_table";
-$result = $db->query($sql);
-$num_cidades = $db->num_rows($result);
+$list_cidades = $db->query($sql);
+$num_cidades = $db->num_rows($list_cidades);
 
 if (isset($_POST[salva_oferta])) {
 	
@@ -45,32 +45,32 @@ if (isset($_POST[salva_oferta])) {
 	$campo_data_encerramento = str_replace(":","",$campo_data_encerramento);
 	
 	if (($_POST[campo_data_encerramento] == '') || ($_POST[campo_valor_real] == '') || ($_POST[campo_valor_desconto] == '') || ($_POST[campo_minimo_cupons] == '') || ($_POST[campo_maximo_cupons] == '') || ($_POST[campo_regiao] == '')) {
-    	header("Location: registra_leilao.php?error=1");
+    	header("Location: nova_oferta.php?error=1");
         exit;
 	}
 	
 	if (($_POST[campo_titulo] == '') || ($_POST[campo_titulo] == 'Digite aqui um título para o seu anúncio')) {
-    	header("Location: registra_leilao.php?error=2");
+    	header("Location: nova_oferta.php?error=2");
         exit;
 	}
 	
 	if (($campo_data_ativacao < $now) || ($campo_data_encerramento < $now)){
-		header("Location: registra_leilao.php?error=3");
+		header("Location: nova_oferta.php?error=3");
        	exit;
 	}
 		
 	if ($campo_data_ativacao > $campo_data_encerramento){
-		header("Location: registra_leilao.php?error=4");
+		header("Location: nova_oferta.php?error=4");
        	exit;
 	}
 	
 	if ($_POST[campo_valor_real] <= $_POST[campo_valor_desconto]){
-		header("Location: registra_leilao.php?error=5");
+		header("Location: nova_oferta.php?error=5");
        	exit;
 	}
 	
 	if ($_POST[campo_maximo_cupons] < $_POST[campo_minimo_cupons]){
-		header("Location: registra_leilao.php?error=6");
+		header("Location: nova_oferta.php?error=6");
        	exit;
 	}
 	
@@ -243,10 +243,10 @@ echo "	<!DOCTYPE html>
 					<div id='wrap'>
 						<div class='caixas_submain' style='margin-top:20px;overflow:auto;padding-bottom:80px;'>";
 						
-							require "../comum/cabecalho.php";
+							require "../comum/cabecalho_down.php";
 						
 echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" . $_SERVER['PHP_SELF'] . "' enctype='multipart/form-data'>	
-							<div style='position:relative;float:left;width:100%;margin-top:110px;'>
+							<div style='position:relative;float:left;width:100%;margin-top:10px;'>
 								<div class='div_campo_titulo'>
 									<input id='titulo' name='campo_titulo' type='text' class='campo_titulo' value='Digite aqui um título para o seu anúncio' onclick='apaga_titulo()' />
 								</div>
@@ -305,7 +305,7 @@ echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" .
 										<select name='campo_regiao' type='text' class='input_padrao' />
 											<option value=''></value>";
 											for($j=0;$j<$num_cidades;$j++){
-												$row = $db->fetch_array($result);
+												$row = $db->fetch_array($list_cidades);
 												echo "<option value=" . $row['ID'] . ">" . $row['CIDADE'] . "</option>";
 											}
 echo "									</select>

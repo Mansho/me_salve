@@ -16,13 +16,26 @@ http://www.inkid.net
 require_once "configuracao/arquivos_cfg.php"; //atalhos para arquivos de configuração
 require_once "comum/$database.class.php";
 require_once "configuracao/inicia_cfg.php"; //inicia configuracoes
-//require_once "../comum/funcoes.php"; //inicia configuracoes
+require_once "comum/funcoes.php"; //inicia configuracoes
 
 global $db;
 
-$sql = "SELECT * FROM $ofertas_table";
-$result = $db->query($sql);
-$oferta = $db->fetch_array($result);
+session_start();
+
+if (isCookieSet()) {
+	$sql = "SELECT REGIAO FROM $users_table WHERE ID = " . $_SESSION[conta];
+	$result_regiao = $db->query($sql);
+	$conta = $db->fetch_array($result_regiao);
+	
+	$regiao = $conta['REGIAO'];
+}
+else {
+	$regiao = 1;
+}
+
+$sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao";
+$result_ofertas = $db->query($sql);
+$oferta = $db->fetch_array($result_ofertas);
 
 echo "	<!DOCTYPE html>
 			<html>
@@ -34,6 +47,25 @@ echo "	<!DOCTYPE html>
 					<title>mesalve - Compra Coletiva</title>
 					
 					<link rel='stylesheet' type='text/css' href='css/geral.css'/>
+					
+					<script type='text/javascript' src='js/countdownpro.js' defer='defer'></script>
+						<meta scheme='countdown1' name='d_before' content=''>
+						<meta scheme='countdown1' name='d_units' content=' DIAS'>
+						<meta scheme='countdown1' name='d_unit' content=' DIA'>
+						<meta scheme='countdown1' name='d_after' content=' | '>
+						<meta scheme='countdown1' name='h_before' content=''>
+						<meta scheme='countdown1' name='h_units' content=''>
+						<meta scheme='countdown1' name='h_unit' content=''>
+						<meta scheme='countdown1' name='h_after' content=':'>
+						<meta scheme='countdown1' name='m_before' content=''>
+						<meta scheme='countdown1' name='m_units' content=''>
+						<meta scheme='countdown1' name='m_unit' content=''>
+						<meta scheme='countdown1' name='m_after' content=':'>
+						<meta scheme='countdown1' name='s_before' content=''>
+						<meta scheme='countdown1' name='s_units' content=''>
+						<meta scheme='countdown1' name='s_unit' content=''>
+						<meta scheme='countdown1' name='s_after' content=''>
+						<meta scheme='countdown1' name='event_msg' content='ENCERRADO'>
 					
 					<script type='text/javascript'>
 						function display_div(div,estado){
@@ -55,7 +87,7 @@ echo "	<!DOCTYPE html>
 						
 							require "comum/cabecalho.php";
 						
-echo "						<div style='position:relative;float:left;width:100%;margin-top:110px;'>
+echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;'>
 							
 								<div style='position:absolute;float:left;width:64%;height:260px;z-index:20;margin-top:90px'>
 									<div style='position:relative;float:left;width:35%;height:100%;'>
@@ -78,11 +110,20 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:110px
 											<img src='imagens/quina_externa.gif'>
 										</div>
 										<div class='info_subetiqueta'>
+											<div style='position:relative;float:left;width:100%;font-size:1.1em;font-weight:bold;letter-spacing:2px;color:#BF0000'>
+												Cupons Vendidos
+											</div>
 										</div>
-										<div class='info_subetiqueta'>	
+										<div class='info_subetiqueta'>
+											<div style='position:relative;float:left;width:100%;font-size:1.6em;font-weight:bold;color:#111;margin-top:6px;margin-bottom:3px'>
+												<span id='countdown1'>" . $oferta['DATA_ENCERRAMENTO'] . " GMT-03:00</span>
+											</div>
+											<div style='position:relative;float:left;width:100%;font-size:1.1em;font-weight:bold;letter-spacing:2px;color:#BF0000'>
+												Tempo Restante
+											</div>
 										</div>
 									</div>
-									<div class='img_oferta' style=\"background: url('imagens/" . $oferta['FOTO1'] . "') no-repeat\">
+									<div class='img_oferta' style=\"background: url('imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat\">
 									</div>
 								</div>
 							
@@ -90,30 +131,62 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:110px
 									<div class='titulo_oferta'>
 										" . substr($oferta['TITULO_OFERTA'], 0, 59) . "
 									</div>
-								</div>
+								</div>";
 							
-								<div class='caixa_oferta_lat'>
-								</div>
+								for($j=0;$j<3;$j++){
+									
+									$oferta = $db->fetch_array($result_ofertas);
+									
+									echo "	<div class='caixa_oferta_lat'>
+												<div style=\"position:relative;float:left;width:100%;height:54%;background: url('imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat;\"></div>
+												<div class='titulo_oferta_menor'>
+													" . substr($oferta['TITULO_OFERTA'], 0, 64) . "
+												</div>
+												<div class='info_caixa_menor'>
+													<div style='position:relative;float:left;width:33%;text-align:center;color:#AE7575;text-decoration:line-through;margin-top:4px'>
+														R$ " . $oferta['VALOR_REAL'] . "
+													</div>
+													<div style='position:relative;float:left;width:33%;text-align:center;color:#6A0000;margin-top:4px'>
+														R$ " . $oferta['VALOR_DESCONTO'] . "
+													</div>
+													<div style='position:relative;float:left;width:33%;text-align:center'>
+														<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
+													</div>
+												</div>
+											</div>";
+								
+								}
 							
-								<div class='caixa_oferta_lat' style='margin-top:16px'>
-									<div style=\"position:relaive;float:left;width:100%;height:38%;background: url('imagens/" . $oferta['FOTO1'] . "') no-repeat;\">
-									</div>
-								</div>
+echo "						</div>";
+
+							$num_ofertas = $db->num_rows($result_ofertas);
 							
-								<div class='caixa_oferta_lat' style='margin-top:16px'>
-								</div>
-							</div>
+							if ($num_ofertas>4) {
+								for($j=4;$j<$num_ofertas;$j++){
+									
+									$oferta = $db->fetch_array($result_ofertas);
+									
+									echo "	<div class='caixa_oferta_inf'>
+												<div style=\"position:relative;float:left;width:100%;height:54%;background: url('imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat;\"></div>
+												<div class='titulo_oferta_menor'>
+													" . substr($oferta['TITULO_OFERTA'], 0, 64) . "
+												</div>
+												<div class='info_caixa_menor'>
+													<div style='position:relative;float:left;width:33%;text-align:center;color:#AE7575;text-decoration:line-through;margin-top:4px'>
+														R$ " . $oferta['VALOR_REAL'] . "
+													</div>
+													<div style='position:relative;float:left;width:33%;text-align:center;color:#6A0000;margin-top:4px'>
+														R$ " . $oferta['VALOR_DESCONTO'] . "
+													</div>
+													<div style='position:relative;float:left;width:33%;text-align:center'>
+														<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
+													</div>
+												</div>
+											</div>";
+								}
+							}
 							
-							<div class='caixa_oferta_inf'>
-							</div>
-							
-							<div class='caixa_oferta_inf'>
-							</div>
-							
-							<div class='caixa_oferta_inf'>
-							</div>
-							
-						</div>
+echo "					</div>
 					</div>
 					<div class='rodape'>
 						<div class='caixas_submain'>";

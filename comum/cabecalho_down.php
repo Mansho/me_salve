@@ -12,12 +12,23 @@ http://www.inkid.net
  
 */
 
+if (isCookieSet()) {
+	$sql = "SELECT REGIAO FROM $users_table WHERE ID = " . $_SESSION[conta];
+	$result = $db->query($sql);
+	$conta = $db->fetch_array($result);
+	
+	$regiao = $conta['REGIAO'];
+}
+else {
+	$regiao = 1;
+}
+
 $sql = "SELECT * FROM $cidades_table";
-$result_cidades = $db->query($sql);
-$num_cidades = $db->num_rows($result_cidades);
+$result = $db->query($sql);
+$num_cidades = $db->num_rows($result);
 
 for($j=0;$j<$num_cidades;$j++){
-	$row = $db->fetch_array($result_cidades);
+	$row = $db->fetch_array($result);
 	
 	if ($row['ID'] == $regiao) {
 		$regiao_desc = $row['CIDADE'];
@@ -26,8 +37,8 @@ for($j=0;$j<$num_cidades;$j++){
 
 echo "<div style='position:relative;float:left;width:100%;height:100px;z-index:30'>
 		<div style='position:absolute;float:left;width:100%;z-index:30'>
-			<div style='position:relative;float:left;'>
-				<img src='imagens/logo1.png'>
+			<div style='position:relative;float:left'>
+				<img src='../imagens/logo1.png'>
 			</div>
 			
 			<div id='regiao_seleciona' style='position:relative;float:left;width:180px;background-color:#AA0000;border:1px solid #F00;border-radius:6px;color:#FFF;padding:4px;font-size:1.5em;margin-left:16px;margin-top:25px;' onclick=\"display_div('regiao_seleciona','none');display_div('escolhe_regiao','block')\">
@@ -49,7 +60,7 @@ echo "<div style='position:relative;float:left;width:100%;height:100px;z-index:3
 						mysql_data_seek($result, 0);
 						
 						for($j=0;$j<$num_cidades;$j++){
-							$row = $db->fetch_array($result_cidades);
+							$row = $db->fetch_array($result);
 							
 							echo "<div style='position:relative;float:left;width:31.3%;padding:1%;overflow:hidden'>" . $row['CIDADE'] . "</div>";
 						}
@@ -62,17 +73,17 @@ echo "				</div>
 			
 			if (isCookieSet()) {
 				echo "	<div style='position:relative;float:right;margin-top:25px;'>
-							<a href='usuario/logout.php'>
+							<a href='../usuario/logout.php'>
 							<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Sair</div>
 							</a>
 						</div>";
 			}
 			else {
 				echo "	<div style='position:relative;float:right;margin-top:25px;'>
-							<a href='usuario/login.php'>
+							<a href='../usuario/login.php'>
 							<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Entrar</div>
 							</a>
-							<a href='usuario/cadastro.php'>
+							<a href='../usuario/cadastro.php'>
 							<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;border-left:2px solid #F00;padding-left:5px'>Cadastre-se</div>
 							</a>
 						</div>";
@@ -83,67 +94,67 @@ echo "	</div>
 			
 			switch ($_GET[error]) {
             case("1"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							Preencha todos os campos obrigatórios
 						</div>";
                 break;
             case("2"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							Digite um título para a sua oferta
 						</div>";
                 break;
 			case("3"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							A data de ativação e de encerramento deve ser posterior à atual 
 						</div>";
                 break;
 			case("4"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							A data de encerramento deve ser posterior à data de ativação
 						</div>";
                 break;
 			case("5"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							O valor sem desconto deve ser maior do que o valor promocional
 						</div>";
                 break;
 			case("6"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							A quantidade máxima de cupons disponíveis deve ser maior que a quantidade mínima
 						</div>";
                 break;
 			case("7"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							A largura da imagem não deve ultrapassar 1500 pixels
 						</div>";
                 break;
 			case("8"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							Altura da imagem não deve ultrapassar 1800 pixels
 						</div>";
                 break;
 			case("9"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							A imagem deve ter no máximo 100000 bytes
 						</div>";
                 break;
 			case("10"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							Formato de imagem não reconhecido
 						</div>";
                 break;
 			case("11"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							E-mail já cadastrado
 						</div>";
                 break;
 			case("12"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							As senhas não coincidem
 						</div>";
                 break;
 			case("13"):
-                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+                echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
 							Saia do sistema para fazer um novo cadastro
 						</div>";
                 break;

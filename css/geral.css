@@ -77,6 +77,7 @@ img {
 	height:59px;
 	background-color:#F3EBEB;
 	border-bottom:1px solid #E9D9D9;
+	text-align:center;
 }
 
 .img_oferta {
@@ -101,11 +102,12 @@ img {
 	position:relative;
 	float:right;
 	width:34%;
-	height:180px;
+	height:188px;
 	background-color:#FFF;
 	border:1px solid #F00;
 	border-radius:6px;
 	overflow:hidden;
+	margin-bottom:15px;
 }
 
 .caixa_oferta_inf {
@@ -118,6 +120,7 @@ img {
 	border-radius:6px;
 	margin-top:16px;
 	margin-left:1.9%;
+	overflow:hidden;
 }
 
 .botao_compra {
@@ -192,6 +195,29 @@ img {
 	color:#222;
 	font-weight:bold;
 	font-size:2.6em;
+	overflow:hidden;
+}
+
+.titulo_oferta_menor {
+	position:relative;
+	float:left;
+	width:96%;
+	padding:2%;
+	color:#222;
+	font-weight:bold;
+	font-size:1.6em;
+	overflow:hidden;
+}
+
+.info_caixa_menor {
+	position:absolute;
+	float:left;
+	width:96%;
+	bottom:0px;
+	padding:2%;
+	color:#222;
+	font-weight:bold;
+	font-size:1.6em;
 	overflow:hidden;
 }
 
@@ -272,13 +298,17 @@ img {
 	float:left;
 	width:99%;
 	text-align:center;
-	margin-top:14px;
 	background-color:#FFFFCC;
 	border-radius:6px;
 	border:1px solid #333;
 	color:#333;
 	padding:3px;
 	font-weight:bold;
+}
+
+#box_error.box_error {
+	float:right;
+	width:97.5%;
 }
 
 #cover {

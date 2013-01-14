@@ -23,7 +23,7 @@ function insereImagem($foto) {
  
    	// Verifica se o arquivo é uma imagem
     if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $foto["type"])){
-	   header("Location: registra_leilao.php?error=10");
+	   header("Location: nova_oferta.php?error=10");
        exit;
    	} 
  
@@ -32,19 +32,19 @@ function insereImagem($foto) {
  
 	// Verifica se a largura da imagem é maior que a largura permitida
 	if($dimensoes[0] > $largura) {
-		header("Location: registra_leilao.php?error=7");
+		header("Location: nova_oferta.php?error=7");
         exit;
 	}
  
 	// Verifica se a altura da imagem é maior que a altura permitida
 	if($dimensoes[1] > $altura) {
-		header("Location: registra_leilao.php?error=8");
+		header("Location: nova_oferta.php?error=8");
         exit;
 	}
  
 	// Verifica se o tamanho da imagem é maior que o tamanho permitido
 	if($foto["size"] > $tamanho) {
-		header("Location: registra_leilao.php?error=9");
+		header("Location: nova_oferta.php?error=9");
         exit;
 	}
 
@@ -63,6 +63,54 @@ function insereImagem($foto) {
 	
 	return $nome_imagem;
 
+}
+
+function isCookieSet()
+{
+	if (checkUser($_SESSION["user"], $_SESSION["enc_pwd"], TRUE) && $_SESSION["user"] != '')
+        return true;
+    else
+        return false;
+}
+
+// Verifica teste de cookie e encaminha para verificaÃ§Ã£o no banco
+function checkUser($name, $pwd, $cookieCheck = FALSE)
+{
+
+	//Define nome temporÃ¡rio caso esteja fazendo teste de Cookie
+	if ($name == '' AND $cookieCheck == TRUE){
+		$name = 'dummyusernamenoteverused'; // dummy username
+		}
+
+    return checkUserDB($name, $pwd);
+}
+
+function checkUserDB($name, $pwd)
+{
+    global $users_table, $db;
+	//verifica existencia do nome no banco e retorna caso senha esteja correta
+    $sql = "select * from " . $users_table . " where email='" . $name . "'";
+    $result = $db->query($sql);
+    $num_rows = $db->num_rows($result);
+
+    if ($num_rows != 1)
+        return false;
+		
+    $row = $db->fetch_array($result);
+
+	//verifica se senha estÃ¡ correta
+    if (!checkPwd($pwd, $row['SENHA']))
+        return false;
+
+    return $row['ID'];
+}
+
+function checkPwd($pwd1, $pwd2)
+{
+    if ($pwd1 == $pwd2)
+        return true;
+    else
+        return false;
 }
 
 ?>
