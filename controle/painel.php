@@ -15,7 +15,7 @@ http://www.inkid.net
 require_once "../configuracao/arquivos_cfg_down.php"; //atalhos para arquivos de configuração
 require_once "../comum/$database.class.php";
 require_once "../configuracao/inicia_cfg.php"; //inicia configuracoes
-//require_once "file:///E|/Trabalhos/Web Sites/comum/funcoes.php"; //inicia configuracoes
+require_once "../comum/funcoes.php"; //inicia configuracoes
 
 global $db;
 
@@ -49,8 +49,8 @@ if ($_GET[data_fim]) {
 	$sql .= " ORDER BY OFERTAS.DATA_ENCERRAMENTO " . $_GET[data_fim];
 }
 		
-$result = $db->query($sql);
-$num_ofertas = $db->num_rows($result);
+$result_ofertas = $db->query($sql);
+$num_ofertas = $db->num_rows($result_ofertas);
 
 echo "	<!DOCTYPE html>
 			<html>
@@ -167,7 +167,7 @@ echo "									</div>
 									";
 										for($j=0;$j<$num_ofertas;$j++){
 											
-											$oferta = $db->fetch_array($result);
+											$oferta = $db->fetch_array($result_ofertas);
 											
 											$percentual_vendido = (($oferta['CUPONS_COMPRADOS'] / $oferta['MAXIMO_CUPONS']) * 100) . "%";
 											
