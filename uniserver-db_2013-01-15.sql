@@ -89,6 +89,7 @@ CREATE TABLE `salve_ofertas` (
   `FOTO3` varchar(50) DEFAULT NULL,
   `REGULAMENTO` text NOT NULL,
   `DESTAQUES` text NOT NULL,
+  `principal` int(1) DEFAULT '0',
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
