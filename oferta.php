@@ -32,10 +32,23 @@ if (isCookieSet()) {
 else {
 	$regiao = 1;
 }
+$sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao ";
+if (!isset($_GET['id'])) {
+$sql_principal  = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao AND PRINCIPAL =1";
+echo "vazio";
+}
+else{
+$sql_principal  = "SELECT * FROM $ofertas_table WHERE  ID =".$_GET['id']."";
+$sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao and ID !=".$_GET['id']."";
+}
 
-$sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao";
+
 $result_ofertas = $db->query($sql);
 $oferta = $db->fetch_array($result_ofertas);
+
+$result_oferta_principal = $db->query($sql_principal);
+$principal=$db->fetch_array($result_oferta_principal);
+echo $principal['ID'];
 
 echo "	<!DOCTYPE html>
 			<html>
@@ -93,10 +106,10 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 									<div style='position:relative;float:left;width:35%;height:100%;'>
 										<div class='preco_etiqueta'>
 											<div class='caixa_valor_real'>
-												R$ " . $oferta['VALOR_REAL'] . "
+												R$ " . $principal['VALOR_REAL'] . "
 											</div>
 											<div class='caixa_valor_desconto'>
-												R$ " . $oferta['VALOR_DESCONTO'] . "
+												R$ " . $principal['VALOR_DESCONTO'] . "
 											</div>
 											
 											<div style='position:relative;float:left;width:100%;text-align:center'>
@@ -116,20 +129,20 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 										</div>
 										<div class='info_subetiqueta'>
 											<div style='position:relative;float:left;width:100%;font-size:1.6em;font-weight:bold;color:#111;margin-top:6px;margin-bottom:3px'>
-												<span id='countdown1'>" . $oferta['DATA_ENCERRAMENTO'] . " GMT-03:00</span>
+												<span id='countdown1'>" . $principal['DATA_ENCERRAMENTO'] . " GMT-03:00</span>
 											</div>
 											<div style='position:relative;float:left;width:100%;font-size:1.1em;font-weight:bold;letter-spacing:2px;color:#BF0000'>
 												Tempo Restante
 											</div>
 										</div>
 									</div>
-									<div class='img_oferta' style=\"background: url('imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat\">
+									<div class='img_oferta' style=\"background: url('imagens/fotos/" . $principal['FOTO1'] . "') no-repeat\">
 									</div>
 								</div>
 							
 								<div class='caixa_oferta'>
 									<div class='titulo_oferta'>
-										" . substr($oferta['TITULO_OFERTA'], 0, 59) . "
+										" . substr($principal['TITULO_OFERTA'], 0, 59) . "
 									</div>
 								</div>";
 							
@@ -150,7 +163,9 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 														R$ " . $oferta['VALOR_DESCONTO'] . "
 													</div>
 													<div style='position:relative;float:left;width:33%;text-align:center'>
+													<a href=oferta.php?id=".$oferta['ID'].">
 														<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
+													</a>
 													</div>
 												</div>
 											</div>";
@@ -160,9 +175,9 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 echo "						</div>";
 
 							$num_ofertas = $db->num_rows($result_ofertas);
-							
-							if ($num_ofertas>4) {
-								for($j=4;$j<$num_ofertas;$j++){
+							echo "num ofertas".$num_ofertas;
+							if ($num_ofertas>=3) {
+								for($j=3;$j<$num_ofertas-1;$j++){
 									
 									$oferta = $db->fetch_array($result_ofertas);
 									
@@ -179,7 +194,9 @@ echo "						</div>";
 														R$ " . $oferta['VALOR_DESCONTO'] . "
 													</div>
 													<div style='position:relative;float:left;width:33%;text-align:center'>
-														<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
+														<a href=oferta.php?id=".$oferta['ID'].">
+															<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
+														</a>
 													</div>
 												</div>
 											</div>";
