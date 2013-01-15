@@ -56,7 +56,7 @@ if (isset($_POST[cadastrar])) {
 	$password = md5($_POST[campo_senha]);
 	
 	// Insere os dados no banco
-	$sql = "INSERT INTO $users_table VALUES (NULL, '$_POST[campo_nome]', '$_POST[campo_email]', '$campo_nascimento', '$_POST[campo_sexo]', '$_POST[campo_regiao]', '$password')";
+	$sql = "INSERT INTO $users_table(id,nome, email, data_nascimento, sexo, regiao, senha) VALUES (NULL, '$_POST[campo_nome]', '$_POST[campo_email]', '$campo_nascimento', '$_POST[campo_sexo]', '$_POST[campo_regiao]', '$password')";
 	$db->query($sql);
 	
 	$_SESSION[user] = $_POST[campo_email];
