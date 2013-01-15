@@ -142,6 +142,7 @@ CREATE TABLE `salve_usuarios` (
   `SEXO` char(1) NOT NULL,
   `REGIAO` int(11) NOT NULL,
   `SENHA` varchar(50) NOT NULL,
+  `ADM` int(1) DEFAULT '0',
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
