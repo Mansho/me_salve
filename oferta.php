@@ -177,7 +177,7 @@ echo "						</div>";
 							$num_ofertas = $db->num_rows($result_ofertas);
 							echo "num ofertas".$num_ofertas;
 							if ($num_ofertas>=3) {
-								for($j=3;$j<$num_ofertas-1;$j++){
+								for($j=3;$j<$num_ofertas;$j++){
 									
 									$oferta = $db->fetch_array($result_ofertas);
 									
