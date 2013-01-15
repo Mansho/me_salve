@@ -32,10 +32,10 @@ if (isCookieSet()) {
 else {
 	$regiao = 1;
 }
-$sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao ";
+
 if (!isset($_GET['id'])) {
 $sql_principal  = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao AND PRINCIPAL =1";
-echo "vazio";
+$sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao and id not in (SELECT id FROM $ofertas_table WHERE REGIAO = $regiao AND PRINCIPAL =1) ";
 }
 else{
 $sql_principal  = "SELECT * FROM $ofertas_table WHERE  ID =".$_GET['id']."";
