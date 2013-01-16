@@ -62,7 +62,9 @@ echo "<div style='position:relative;float:left;width:100%;height:100px;z-index:3
 						for($j=0;$j<$num_cidades;$j++){
 							$row = $db->fetch_array($result);
 							
-							echo "<div style='position:relative;float:left;width:31.3%;padding:1%;overflow:hidden'>" . $row['CIDADE'] . "</div>";
+							echo "	<div style='position:relative;float:left;width:31.3%;padding:1%;overflow:hidden'>
+										<a href='../oferta.php?regiao=" . $row['ID'] . "' style='color:#FFF'>" . $row['CIDADE'] . "</a>
+									</div>";
 						}
 
 echo "				</div>

@@ -38,22 +38,22 @@ $num_cidades = $db->num_rows($list_cidades);
 
 if (isset($_POST[salva_oferta])) {
 	
-	$now = date("Y-m-d H:i");
-	$now = str_replace("-","",$now);
+	$now2 = date("Y-m-d H:i");
+	$now = str_replace("-","",$now2);
 	$now = str_replace(" ","",$now);
 	$now = str_replace(":","",$now);
 	
 	if (isset($_POST[campo_data_ativacao])) {
 		$campo_data_ativacao = strtotime($_POST[campo_data_ativacao]);
-		$campo_data_ativacao = date("Y-m-d H:i",$campo_data_ativacao);
-		$campo_data_ativacao = str_replace("-","",$campo_data_ativacao);
+		$campo_data_ativacao2 = date("Y-m-d H:i",$campo_data_ativacao);
+		$campo_data_ativacao = str_replace("-","",$campo_data_ativacao2);
 		$campo_data_ativacao = str_replace(" ","",$campo_data_ativacao);
 		$campo_data_ativacao = str_replace(":","",$campo_data_ativacao);
 	}
 	
 	$campo_data_encerramento = strtotime($_POST[campo_data_encerramento]);
-	$campo_data_encerramento = date("Y-m-d H:i",$campo_data_encerramento);
-	$campo_data_encerramento = str_replace("-","",$campo_data_encerramento);
+	$campo_data_encerramento2 = date("Y-m-d H:i",$campo_data_encerramento);
+	$campo_data_encerramento = str_replace("-","",$campo_data_encerramento2);
 	$campo_data_encerramento = str_replace(" ","",$campo_data_encerramento);
 	$campo_data_encerramento = str_replace(":","",$campo_data_encerramento);
 	
@@ -115,7 +115,7 @@ if (isset($_POST[salva_oferta])) {
 	}
 	
 	// Insere os dados no banco
-	$sql = "INSERT INTO $ofertas_table VALUES (NULL, '1', '1', '$now', '$campo_data_ativacao', '$campo_data_encerramento', '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
+	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,VALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, '1', '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
 	$db->query($sql);
  
 

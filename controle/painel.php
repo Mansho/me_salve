@@ -140,6 +140,12 @@ echo "	<!DOCTYPE html>
 							require "../comum/cabecalho_down.php";
 						
 echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;'>
+								<div style='position:relative;float:left;width:99%;text-align:right;margin-bottom:10px'>
+									<a href='nova_oferta.php'>
+									<input id='cadastrar' name='cadastrar' type='button' class='button_padrao' style='width:auto' value='Nova Oferta' />
+									</a>
+								</div>
+								
 								<div class='caixa_padrao'>
 									<div class='cabeca_caixa_padrao'>
 										<div style='position:relative;float:left;width:22%;padding:8px;font-size:1.4em;color:#FFF;font-weight:bold'>";

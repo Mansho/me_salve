@@ -22,15 +22,20 @@ global $db;
 
 session_start();
 
-if (isCookieSet()) {
-	$sql = "SELECT REGIAO FROM $users_table WHERE ID = " . $_SESSION[conta];
-	$result_regiao = $db->query($sql);
-	$conta = $db->fetch_array($result_regiao);
-	
-	$regiao = $conta['REGIAO'];
+if (isset($_GET['regiao'])) {
+	$regiao = $_GET['regiao'];
 }
 else {
-	$regiao = 1;
+	if (isCookieSet()) {
+		$sql = "SELECT REGIAO FROM $users_table WHERE ID = " . $_SESSION[conta];
+		$result_regiao = $db->query($sql);
+		$conta = $db->fetch_array($result_regiao);
+	
+		$regiao = $conta['REGIAO'];
+	}
+	else {
+		$regiao = 1;
+	}
 }
 
 if (!isset($_GET['id'])) {

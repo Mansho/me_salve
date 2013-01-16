@@ -46,12 +46,14 @@ echo "<div style='position:relative;float:left;width:100%;height:100px;z-index:3
 					<div style='position:relative;float:left;width:238px;height:2px;background-color:#AA0000;border-right:1px solid #D50000;border-top:1px solid #D50000;border-top-right-radius:6px;margin-top:-1px'>
 					</div>
 					<div style='position:relative;float:left;width:424px;height:110px;background-color:#AA0000;border-right:1px solid #D50000;border-left:1px solid #D50000;font-size:1.1em;font-weight:bold;color:#FFF'>";
-						mysql_data_seek($result, 0);
+						mysql_data_seek($result_cidades, 0);
 						
 						for($j=0;$j<$num_cidades;$j++){
 							$row = $db->fetch_array($result_cidades);
 							
-							echo "<div style='position:relative;float:left;width:31.3%;padding:1%;overflow:hidden'>" . $row['CIDADE'] . "</div>";
+							echo "	<div style='position:relative;float:left;width:31.3%;padding:1%;overflow:hidden'>
+										<a href='oferta.php?regiao=" . $row['ID'] . "' style='color:#FFF'>" . $row['CIDADE'] . "</a>
+									</div>";
 						}
 
 echo "				</div>
