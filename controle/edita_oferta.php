@@ -19,6 +19,19 @@ require_once "../comum/funcoes.php";
 
 global $db;
 
+session_start();
+
+if (!isCookieSet()) {
+	header("Location: ../oferta.php?error=14");
+    exit;
+}
+else {
+	if (!isAdministrator($_SESSION[conta])) {
+		header("Location: ../oferta.php?error=15");
+    	exit;
+	}
+}
+
 if (isset($_POST[atualiza_oferta])) {
 	
 	$now = date("Y-m-d H:i");

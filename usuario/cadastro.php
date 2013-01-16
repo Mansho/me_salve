@@ -27,8 +27,8 @@ if (isCookieSet()) {
 }
 
 $sql = "SELECT * FROM $cidades_table";
-$result = $db->query($sql);
-$num_cidades = $db->num_rows($result);
+$result_cidades = $db->query($sql);
+$num_cidades = $db->num_rows($result_cidades);
 
 
 
@@ -174,10 +174,9 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 									</div>
 									<div style='position:relative;float:left;width:80%;margin-top:8px'>
 										<label for='campo_região' class='label_padrao' style='font-size:1.6em'>Região</label>
-										<select id='regiao' name='campo_regiao' type='text' class='input_padrao' style='height:36px;width:56.5%;font-size:1.5em' />
-											<option value=''></value>";
+										<select id='regiao' name='campo_regiao' type='text' class='input_padrao' style='height:36px;width:56.5%;font-size:1.5em' />]";
 											for($j=0;$j<$num_cidades;$j++){
-												$row = $db->fetch_array($result);
+												$row = $db->fetch_array($result_cidades);
 												echo "<option value=" . $row['ID'] . ">" . $row['CIDADE'] . "</option>";
 											}
 echo "									</select>

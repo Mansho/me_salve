@@ -19,6 +19,19 @@ require_once "../comum/funcoes.php"; //inicia configuracoes
 
 global $db;
 
+session_start();
+
+if (!isCookieSet()) {
+	header("Location: ../oferta.php?error=14");
+    exit;
+}
+else {
+	if (!isAdministrator($_SESSION[conta])) {
+		header("Location: ../oferta.php?error=15");
+    	exit;
+	}
+}
+
 if (isset($_POST[ativa_oferta])) {
 	
 	$sql = "UPDATE $ofertas_table SET STATUS = 2, DATA_ATIVACAO = NOW() WHERE ID = " . $_POST[id_ativa] . " AND STATUS = 1";

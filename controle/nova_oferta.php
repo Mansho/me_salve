@@ -19,6 +19,19 @@ require_once "../comum/funcoes.php";
 
 global $db;
 
+session_start();
+
+if (!isCookieSet()) {
+	header("Location: ../oferta.php?error=14");
+    exit;
+}
+else {
+	if (!isAdministrator($_SESSION[conta])) {
+		header("Location: ../oferta.php?error=15");
+    	exit;
+	}
+}
+
 $sql = "SELECT * FROM $cidades_table";
 $list_cidades = $db->query($sql);
 $num_cidades = $db->num_rows($list_cidades);

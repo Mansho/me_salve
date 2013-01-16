@@ -61,11 +61,23 @@ echo "				</div>
 			</div>";
 			
 			if (isCookieSet()) {
-				echo "	<div style='position:relative;float:right;margin-top:25px;'>
-							<a href='usuario/logout.php'>
-							<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Sair</div>
-							</a>
-						</div>";
+				if (isAdministrator($_SESSION[conta])) {
+					echo "	<div style='position:relative;float:right;margin-top:25px;'>
+								<a href='controle/painel.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Painel</div>
+								</a>
+								<a href='usuario/logout.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;border-left:2px solid #F00;padding-left:5px'>Sair</div>
+								</a>
+							</div>";
+				}
+				else {
+					echo "	<div style='position:relative;float:right;margin-top:25px;'>
+								<a href='../usuario/logout.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Sair</div>
+								</a>
+							</div>";
+				}
 			}
 			else {
 				echo "	<div style='position:relative;float:right;margin-top:25px;'>
@@ -145,6 +157,16 @@ echo "	</div>
 			case("13"):
                 echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
 							Saia do sistema para fazer um novo cadastro
+						</div>";
+                break;
+			case("14"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							É necessário fazer login para acessar essa página
+						</div>";
+                break;
+			case("15"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							Você não tem permissão para acessar essa página
 						</div>";
                 break;
             default:

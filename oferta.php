@@ -44,7 +44,6 @@ $sql = "SELECT * FROM $ofertas_table WHERE REGIAO = $regiao and ID !=".$_GET['id
 
 
 $result_ofertas = $db->query($sql);
-$oferta = $db->fetch_array($result_ofertas);
 
 $result_oferta_principal = $db->query($sql_principal);
 $principal=$db->fetch_array($result_oferta_principal);
@@ -177,8 +176,9 @@ echo "						</div>";
 							$num_ofertas = $db->num_rows($result_ofertas);
 							echo "num ofertas".$num_ofertas;
 							if ($num_ofertas>=3) {
+								
 								for($j=3;$j<$num_ofertas;$j++){
-									
+									echo "teste";
 									$oferta = $db->fetch_array($result_ofertas);
 									
 									echo "	<div class='caixa_oferta_inf'>

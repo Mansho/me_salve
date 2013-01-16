@@ -59,6 +59,7 @@ if (isset($_POST[cadastrar])) {
 	$sql = "INSERT INTO $users_table(id,nome, email, data_nascimento, sexo, regiao, senha) VALUES (NULL, '$_POST[campo_nome]', '$_POST[campo_email]', '$campo_nascimento', '$_POST[campo_sexo]', '$_POST[campo_regiao]', '$password')";
 	$db->query($sql);
 	
+	$_SESSION[conta] = (checkUser($_POST[campo_email], $password));
 	$_SESSION[user] = $_POST[campo_email];
     $_SESSION[enc_pwd] = $password;
 	$_SESSION[acesso]= date("Y-n-j H:i:s"); 

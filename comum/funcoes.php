@@ -113,4 +113,19 @@ function checkPwd($pwd1, $pwd2)
         return false;
 }
 
+function isAdministrator($conta)
+{
+    global $users_table, $db;
+
+    $sql = "select * from " . $users_table . " where ID='" . $conta . "' and ADM=1";
+    $result = $db->query($sql);
+    $num_rows = $db->num_rows($result);
+
+    if ($num_rows == 1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ?>
