@@ -105,6 +105,20 @@ function checkUserDB($name, $pwd)
     return $row['ID'];
 }
 
+function checkADM($conta)
+{
+    global $users_table, $db;
+	//verifica existencia do nome no banco e retorna caso senha esteja correta
+    $sql = "select * from " . $users_table . " where id=" . $conta . " and adm = 1";
+    $result = $db->query($sql);
+    $num_rows = $db->num_rows($result);
+
+    if ($num_rows != 1)
+        return false;
+	else 
+		return true;
+}
+
 function checkPwd($pwd1, $pwd2)
 {
     if ($pwd1 == $pwd2)

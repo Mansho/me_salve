@@ -26,6 +26,7 @@ if (isset($_POST[campo_user])) {
 	$_SESSION[conta] = (checkUser($_POST[campo_user], $password));
 		
     if ($_SESSION[conta]) {
+		$_SESSION[ADM] = (checkADM($_SESSION[conta]));
     	$_SESSION[user] = $_POST[campo_user];
         $_SESSION[enc_pwd] = $password;
 		$_SESSION[acesso]= date("Y-n-j H:i:s"); 

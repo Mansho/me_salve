@@ -63,7 +63,7 @@ echo "				</div>
 			</div>";
 			
 			if (isCookieSet()) {
-				if (isAdministrator($_SESSION[conta])) {
+				if ($_SESSION[ADM]) {
 					echo "	<div style='position:relative;float:right;margin-top:25px;'>
 								<a href='controle/painel.php'>
 									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Painel</div>
@@ -75,7 +75,7 @@ echo "				</div>
 				}
 				else {
 					echo "	<div style='position:relative;float:right;margin-top:25px;'>
-								<a href='../usuario/logout.php'>
+								<a href='usuario/logout.php'>
 									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Sair</div>
 								</a>
 							</div>";

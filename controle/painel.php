@@ -26,7 +26,7 @@ if (!isCookieSet()) {
     exit;
 }
 else {
-	if (!isAdministrator($_SESSION[conta])) {
+	if (!$_SESSION[ADM]) {
 		header("Location: ../oferta.php?error=15");
     	exit;
 	}
