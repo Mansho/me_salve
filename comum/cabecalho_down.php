@@ -76,18 +76,24 @@ echo "				</div>
 			if (isCookieSet()) {
 				if ($_SESSION[ADM]) {
 					echo "	<div style='position:relative;float:right;margin-top:25px;'>
-								<a href='controle/painel.php'>
+								<a href='../controle/painel.php'>
 									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Painel</div>
 								</a>
-								<a href='usuario/logout.php'>
+								<a href='../usuario/logout.php'>
 									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;border-left:2px solid #F00;padding-left:5px'>Sair</div>
 								</a>
 							</div>";
 				}
 				else {
 					echo "	<div style='position:relative;float:right;margin-top:25px;'>
+								<a href='../usuario/cupons.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Cupons</div>
+								</a>
+								<a href='../usuario/edita_cadastro.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px;border-left:2px solid #F00;padding-left:5px'>Editar Cadastro</div>
+								</a>
 								<a href='../usuario/logout.php'>
-									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Sair</div>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;border-left:2px solid #F00;padding-left:5px'>Sair</div>
 								</a>
 							</div>";
 				}
@@ -180,6 +186,11 @@ echo "	</div>
 			case("15"):
                 echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
 							Você não tem permissão para acessar essa página
+						</div>";
+                break;
+			case("16"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							Dados cadastrados alterados com sucesso
 						</div>";
                 break;
             default:

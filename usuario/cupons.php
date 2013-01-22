@@ -22,7 +22,7 @@ global $db;
 session_start();
 
 if (!isCookieSet()) {
-	header("Location: ../oferta.php?error=999");
+	header("Location: ../oferta.php?error=14");
     exit;
 }
 
@@ -37,7 +37,7 @@ echo "	<!DOCTYPE html>
 					
 					<link rel='stylesheet' type='text/css' href='../css/geral.css'/>
 					
-					<script type='text/javascript' src='../js/jquery-1.7.1.min.js'></script>
+					<script type='text/javascript' src='../js/prototype.js'></script>
 					
 					<script type='text/javascript'>
 						function CarregaCupons(opcao) {
@@ -70,6 +70,15 @@ echo "	<!DOCTYPE html>
 									document.getElementById('usados').setAttribute('class', 'menu_middle_off');
 									document.getElementById('vencidos').setAttribute('class', 'menu');
 								}
+								
+								var myAjax = new Ajax.Updater('lista_cupons','lista_cupons.php?opcao='+opcao,
+								{
+									method : 'get',
+									onCreate: function(){ 
+         								$('lista_cupons').update('<div style=\"position:relative;width:100%;margin-top:160px;text-align:center\"><img src=\"../imagens/bar_loading.gif\" alt=\"wait\" /></div>'); 
+       		 						},
+								}) ;
+								
 							}
 						}
 					</script>
@@ -102,6 +111,18 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 								<div id='vencidos' class='menu_middle_off' style='border-top-right-radius:6px;' onclick=\"CarregaCupons('vencidos')\">Vencidos</div>
 
 								<div style='position:relative;float:left;width:99%;height:600px;background-color:#FFF;border:4px solid #AA0000;border-radius:10px;border-top-left-radius:0px;border-top:0px'>
+									<div id='lista_cupons' style='float:left;width:99.2%;height:99%;margin-left:6px;margin-top:4px;overflow:auto'>";
+										if (isset($_GET['pagina'])) {
+											require $_GET['pagina'].".php";
+											echo "	<script type='text/javascript'>
+														document.getElementById('leiloes').setAttribute('class', 'menu_top_off');
+														document.getElementById('" . $_GET['pagina'] . "').setAttribute('class', 'menu');
+													</script>";								
+										}
+										else {
+											require "lista_cupons.php";	
+										}
+echo "								</div>
 								</div>
 								
 							</div>

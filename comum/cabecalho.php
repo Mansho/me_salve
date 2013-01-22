@@ -75,8 +75,14 @@ echo "				</div>
 				}
 				else {
 					echo "	<div style='position:relative;float:right;margin-top:25px;'>
+								<a href='usuario/cupons.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Cupons</div>
+								</a>
+								<a href='usuario/edita_cadastro.php'>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px;border-left:2px solid #F00;padding-left:5px'>Editar Cadastro</div>
+								</a>
 								<a href='usuario/logout.php'>
-									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;margin-right:6px'>Sair</div>
+									<div style='position:relative;float:left;color:#FFF;font-size:1.4em;font-weight:bold;border-left:2px solid #F00;padding-left:5px'>Sair</div>
 								</a>
 							</div>";
 				}

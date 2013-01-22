@@ -37,5 +37,6 @@ $ofertas_table = "salve_ofertas";
 $cidades_table = "salve_cidades";
 $status_table = "salve_status_ofertas";
 $users_table = "salve_usuarios";
+$cupons_table = "salve_cupom";
 
 ?>

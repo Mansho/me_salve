@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="cadastro.php" server="C:/UniServer/www/me_salve/" local="130027699611030452" remote="130027699610000000" />
-<file name="registra.php" server="C:/UniServer/www/me_salve/" local="130027696123400971" remote="130027696120000000" />
+<file name="cadastro.php" server="C:/UniServer/www/me_salve/" local="130027736633678026" remote="130027736630000000" />
+<file name="registra.php" server="C:/UniServer/www/me_salve/" local="130027736633688027" remote="130027736630000000" />
 <file name="login.php" server="C:/UniServer/www/me_salve/" local="130029281277730823" remote="130029281270000000" />
 <file name="logout.php" server="C:/UniServer/www/me_salve/" local="130023301606469533" remote="130023301600000000" />
-<file name="cupons.php" server="C:/UniServer/www/me_salve/" local="130030316184094016" remote="130030316180000000" />
+<file name="cupons.php" server="C:/UniServer/www/me_salve/" local="130033679346926462" remote="130033679340000000" />
+<file name="edita_cadastro.php" server="C:/UniServer/www/me_salve/" local="130033501422469765" remote="130033501420000000" />
+<file name="lista_cupons.php" server="C:/UniServer/www/me_salve/" local="130033654115963333" remote="130033654110000000" />
 </dwsync>
