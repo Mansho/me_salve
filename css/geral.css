@@ -412,3 +412,34 @@ img {
 	color:#DA0000;
 	background-color:#6A0000;
 }
+
+.caixa_desc_cupom {
+	position:relative;
+	float:left;
+	width:40%;
+	height:74px;
+	background-color:#DDD;
+	border:1px solid #CCC;
+	margin-left:16px;
+	border-radius:3px;
+	box-shadow:inset 0px -8px 5px -8px #AAA, inset 0px 8px 5px -8px #AAA, inset 8px 0px 5px -8px #AAA, inset -8px 0px 5px -8px #AAA;
+	padding:3px;
+	font-size:1.8em;
+	color:#000;
+}
+
+.caixa_cupom {
+	position:absolute;
+	float:left;
+	width:800px;
+	height:600px;
+	z-index:75;
+	background-color:#FFF;
+	display:none;
+	border:1px solid #6A0000;
+	margin-left:50%;
+	left:-400px;
+	margin-top:200px;
+	border-radius:3px;
+	padding:4px;
+}

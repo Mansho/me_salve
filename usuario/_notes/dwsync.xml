@@ -4,7 +4,8 @@
 <file name="registra.php" server="C:/UniServer/www/me_salve/" local="130027736633688027" remote="130027736630000000" />
 <file name="login.php" server="C:/UniServer/www/me_salve/" local="130029281277730823" remote="130029281270000000" />
 <file name="logout.php" server="C:/UniServer/www/me_salve/" local="130023301606469533" remote="130023301600000000" />
-<file name="cupons.php" server="C:/UniServer/www/me_salve/" local="130033679346926462" remote="130033679340000000" />
+<file name="cupons.php" server="C:/UniServer/www/me_salve/" local="130035326135099174" remote="130035326130000000" />
 <file name="edita_cadastro.php" server="C:/UniServer/www/me_salve/" local="130033501422469765" remote="130033501420000000" />
-<file name="lista_cupons.php" server="C:/UniServer/www/me_salve/" local="130033654115963333" remote="130033654110000000" />
+<file name="lista_cupons.php" server="C:/UniServer/www/me_salve/" local="130035336676272095" remote="130035336670000000" />
+<file name="detalhe_cupom.php" server="C:/UniServer/www/me_salve/" local="130035327043111110" remote="130035327040000000" />
 </dwsync>

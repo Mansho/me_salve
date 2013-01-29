@@ -37,7 +37,24 @@ echo "	<!DOCTYPE html>
 					
 					<link rel='stylesheet' type='text/css' href='../css/geral.css'/>
 					
+					<script type='text/javascript' src='../js/jquery-1.7.1.min.js'></script>
 					<script type='text/javascript' src='../js/prototype.js'></script>
+					
+					<script type='text/javascript'>
+						function DetalhesCupons(opcao) {
+							if(opcao){
+								
+								var myAjax = new Ajax.Updater('exibe_cupom','detalhe_cupom.php?id='+opcao,
+								{
+									method : 'get',
+									onCreate: function(){ 
+         								$('exibe_cupom').update('<div style=\"position:relative;width:100%;margin-top:160px;text-align:center\"><img src=\"../imagens/bar_loading.gif\" alt=\"wait\" /></div>'); 
+       		 						},
+								}) ;
+								
+							}
+						}
+					</script>
 					
 					<script type='text/javascript'>
 						function CarregaCupons(opcao) {
@@ -84,6 +101,14 @@ echo "	<!DOCTYPE html>
 					</script>
 					
 					<script type='text/javascript'>
+						function alturaCover() {
+							var altura = jQuery(document).height();
+							altura = altura+'px';
+							document.getElementById('cover').style.height = altura;
+						}
+					</script>
+					
+					<script type='text/javascript'>
 						function display_div(div,estado){
 							document.getElementById(div).style.display = estado;
 						}
@@ -96,7 +121,11 @@ echo "	<!DOCTYPE html>
 					<![endif]-->				
 				</head>
 				
-				<body>
+				<body onload='alturaCover()'>
+			
+					<div id='cover' style='position:absolute;float:left;width:100%;height:400px;z-index:70;background-color:#6A0000;display:none;opacity:0.95;'></div>
+				
+					<div id='exibe_cupom' class='caixa_cupom'></div>
 				
 					<div id='wrap'>
 						<div class='caixas_submain' style='margin-top:20px;overflow:auto;padding-bottom:80px;'>";
