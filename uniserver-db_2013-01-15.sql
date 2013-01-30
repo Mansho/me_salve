@@ -62,7 +62,20 @@ CREATE TABLE `salve_empresas` (
   `SENHA` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+-- --------------------------------------------------------
 
+--
+-- Estrutura da tabela `salve_cupom`
+--
+
+CREATE TABLE `salve_cupom` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `USUARIO` int(11) NOT NULL,
+  `OFERTA` int(11) NOT NULL,
+  `STATUS` int(1) NOT NULL DEFAULT '1',
+  `TOKEN` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 -- --------------------------------------------------------
 
 --
@@ -90,6 +103,8 @@ CREATE TABLE `salve_ofertas` (
   `REGULAMENTO` text NOT NULL,
   `DESTAQUES` text NOT NULL,
   `principal` int(1) DEFAULT '0',
+  `DATA_INICIO_VENCIMENTO` datetime NOT NULL,
+  `DATA_FIM_VENCIMENTO` datetime NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
