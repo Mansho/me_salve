@@ -112,12 +112,12 @@ CREATE TABLE `salve_ofertas` (
 -- Extraindo dados da tabela `salve_ofertas`
 --
 
-INSERT INTO `salve_ofertas` (`ID`, `CONTA_EMPRESA`, `STATUS`, `DATA_CRIACAO`, `DATA_ATIVACAO`, `DATA_ENCERRAMENTO`, `VALOR_REAL`, `VALOR_DESCONTO`, `MINIMO_CUPONS`, `MAXIMO_CUPONS`, `CUPONS_COMPRADOS`, `REGIAO`, `TITULO_OFERTA`, `FOTO1`, `FOTO2`, `FOTO3`, `REGULAMENTO`, `DESTAQUES`) VALUES
-(1, 1, 1, '2012-12-10 23:03:11', '2013-02-01 00:00:00', '2013-04-01 00:00:00', '500.00', '250.00', 10, 54, NULL, 1, 'SABONETES EM DESCONTO', 'b2e5d02974229def793ee9665fc77961.jpg', 'd01aa4c6a59097008f33a427b2300c7c.jpg', '', 'teste reg1', 'teste dest1'),
-(13, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '70.00', '22.00', 5, 50, 0, 1, 'Pizza coma a vontade', 'f3d7ddcae9994e9b11a911a8ee273ae8.jpg', '', '', 'teste', 'teste2'),
-(14, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '100.00', '99.00', 2, 20, 0, 1, 'Chocolates leve 3 pague 11', 'b9d24df2fbc54b2b89f19dba8776542a.jpg', '', '', 'teste', 'teste2'),
-(12, 1, 2, '2020-12-12 20:23:40', '2012-12-21 19:06:22', '2020-12-12 22:21:35', '200.00', '40.00', 12, 31, 0, 1, 'teste datas', '00b821dada271ba72ea7fbab7aa9c30d.gif', '', '', 'teste', 'teste2'),
-(15, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '50.00', '29.00', 2, 10, 0, 1, 'Coma um japa e ganhe um picol', '17723e96345a256bd0c9367fce8e9bc8.jpg', '', '', 'teste', 'teste2');
+INSERT INTO `salve_ofertas` (`ID`, `CONTA_EMPRESA`, `STATUS`, `DATA_CRIACAO`, `DATA_ATIVACAO`, `DATA_ENCERRAMENTO`, `VALOR_REAL`, `VALOR_DESCONTO`, `MINIMO_CUPONS`, `MAXIMO_CUPONS`, `CUPONS_COMPRADOS`, `REGIAO`, `TITULO_OFERTA`, `FOTO1`, `FOTO2`, `FOTO3`, `REGULAMENTO`, `DESTAQUES`,`DATA_INICIO_VENCIMENTO`,`DATA_FIM_VENCIMENTO`) VALUES
+(1, 1, 1, '2012-12-10 23:03:11', '2013-02-01 00:00:00', '2013-04-01 00:00:00', '500.00', '250.00', 10, 54, NULL, 1, 'SABONETES EM DESCONTO', 'b2e5d02974229def793ee9665fc77961.jpg', 'd01aa4c6a59097008f33a427b2300c7c.jpg', '', 'teste reg1', 'teste dest1','2013-02-01 00:00:00', '2013-04-01 00:00:00'),
+(13, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '70.00', '22.00', 5, 50, 0, 1, 'Pizza coma a vontade', 'f3d7ddcae9994e9b11a911a8ee273ae8.jpg', '', '', 'teste', 'teste2','2013-02-01 00:00:00', '2013-04-01 00:00:00'),
+(14, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '100.00', '99.00', 2, 20, 0, 1, 'Chocolates leve 3 pague 11', 'b9d24df2fbc54b2b89f19dba8776542a.jpg', '', '', 'teste', 'teste2','2013-02-01 00:00:00', '2013-04-01 00:00:00'),
+(12, 1, 2, '2020-12-12 20:23:40', '2012-12-21 19:06:22', '2020-12-12 22:21:35', '200.00', '40.00', 12, 31, 0, 1, 'teste datas', '00b821dada271ba72ea7fbab7aa9c30d.gif', '', '', 'teste', 'teste2','2013-02-01 00:00:00', '2013-04-01 00:00:00'),
+(15, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '50.00', '29.00', 2, 10, 0, 1, 'Coma um japa e ganhe um picol', '17723e96345a256bd0c9367fce8e9bc8.jpg', '', '', 'teste', 'teste2','2013-02-01 00:00:00', '2013-04-01 00:00:00');
 
 -- --------------------------------------------------------
 
