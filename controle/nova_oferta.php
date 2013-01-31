@@ -21,6 +21,9 @@ global $db;
 
 session_start();
 
+function formatdate(){
+
+}
 if (!isCookieSet()) {
 	header("Location: ../oferta.php?error=14");
     exit;
@@ -56,6 +59,19 @@ if (isset($_POST[salva_oferta])) {
 	$campo_data_encerramento = str_replace("-","",$campo_data_encerramento2);
 	$campo_data_encerramento = str_replace(" ","",$campo_data_encerramento);
 	$campo_data_encerramento = str_replace(":","",$campo_data_encerramento);
+	
+	$campo_data_validade_inicio = strtotime($_POST[campo_data_validade_inicio]);
+	$campo_data_validade_inicio2 = date("Y-m-d H:i",$campo_data_validade_inicio);
+	$campo_data_validade_inicio = str_replace("-","",$campo_data_validade_inicio2);
+	$campo_data_validade_inicio = str_replace(" ","",$campo_data_validade_inicio);
+	$campo_data_validade_inicio = str_replace(":","",$campo_data_validade_inicio);
+	
+	$campo_data_validade_fim = strtotime($_POST[campo_data_validade_fim]);
+	$campo_data_validade_fim2 = date("Y-m-d H:i",$campo_data_validade_fim);
+	$campo_data_validade_fim = str_replace("-","",$campo_data_validade_fim2);
+	$campo_data_validade_fim = str_replace(" ","",$campo_data_validade_fim);
+	$campo_data_validade_fim = str_replace(":","",$campo_data_validade_fim);
+	
 	
 	if (($_POST[campo_data_encerramento] == '') || ($_POST[campo_valor_real] == '') || ($_POST[campo_valor_desconto] == '') || ($_POST[campo_minimo_cupons] == '') || ($_POST[campo_maximo_cupons] == '') || ($_POST[campo_regiao] == '')) {
     	header("Location: nova_oferta.php?error=1");
@@ -115,7 +131,7 @@ if (isset($_POST[salva_oferta])) {
 	}
 	
 	// Insere os dados no banco
-	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,CAMPO_DATA_VALIDADE_FIM,CAMPO_DATA_VALIDADE_INICIOVALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, '1', '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
+	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,DATA_INICIO_VENCIMENTO,DATA_FIM_VENCIMENTO,VALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, $_SESSION[conta], '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$campo_data_validade_inicio2', '$campo_data_validade_fim2',  '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
 	$db->query($sql);
  
 

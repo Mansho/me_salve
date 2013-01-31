@@ -48,7 +48,8 @@ if (isset($_POST[apaga_oferta])) {
 
 $sql = "SELECT OFERTAS.*, STATUS.DESCRICAO STATUS_DESC
 		FROM $ofertas_table OFERTAS, $status_table STATUS
-		WHERE OFERTAS.STATUS = STATUS.ID";
+		WHERE OFERTAS.STATUS = STATUS.ID 
+		  AND OFERTAS.CONTA_EMPRESA = ".$_SESSION[conta];
 		
 if ($_GET[titulo]) {
 	$sql .= " ORDER BY OFERTAS.TITULO_OFERTA " . $_GET[titulo];
