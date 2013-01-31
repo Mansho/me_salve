@@ -28,9 +28,12 @@ if (!isCookieSet()) {
 }
 ob_end_flush();
 //consulta conta registrada do usuario
-$sql = "SELECT *, DATE_FORMAT(CUPONS.VENCIMENTO, '%d/%m/%Y %H:%i') VENCIMENTO
-		FROM $cupons_table CUPONS, $ofertas_table OFERTAS
-		WHERE CUPONS.ID = " . $_GET[id];
+$sql = "SELECT USUARIOS.NOME NOME,OFERTAS.TITULO_OFERTA TITULO_OFERTA,OFERTAS.DESTAQUES DESTAQUES,OFERTAS.REGULAMENTO REGULAMENTO,CUPONS.TOKEN TOKEN, DATE_FORMAT(CUPONS.VENCIMENTO, '%d/%m/%Y') VENCIMENTO
+		FROM $cupons_table CUPONS, $ofertas_table OFERTAS, $users_table USUARIOS
+		WHERE  CUPONS.usuario  = USUARIOS.id
+           and CUPONS.oferta =OFERTAS.id 
+		   and CUPONS.ID = " . $_GET[id] .
+		" AND USUARIOS.id= " . $_SESSION[conta]		;
 
 
 $result_cupom = $db->query($sql);
@@ -59,9 +62,21 @@ $pdf->SetY("-2");
         $pdf->SetFillColor(122,122,122);
  
         $pdf-> SetFont('Times','B',9);
-        $pdf-> Cell(30,5,'mesalve: ',0,0);
+        $pdf-> Cell(30,5,'NOME: ',0,0);
         $pdf-> SetFont('Times','',9);
-        $pdf-> Cell(75,5,'@mesalve',0,1);
+        $pdf-> Cell(75,5,$cupom['NOME'],0,1);
+        $pdf-> Ln(3);
+ 
+        $pdf-> SetFont('Times','B',9);
+        $pdf-> Cell(30,5,'CODIGO: ',0,0);
+        $pdf-> SetFont('Times','',9);
+        $pdf-> Cell(75,5,$cupom['TOKEN'],0,1);
+        $pdf-> Ln(3);
+		
+		$pdf-> SetFont('Times','B',9);
+        $pdf-> Cell(50,5,'DATA DE VENCIMENTO: ',0,0);
+        $pdf-> SetFont('Times','',9);
+        $pdf-> Cell(30,5,$cupom['VENCIMENTO'],0,1,'L');
         $pdf-> Ln(3);
  
         $pdf-> SetFont('Times','B',9);
@@ -69,6 +84,7 @@ $pdf->SetY("-2");
         $pdf-> SetFont('Times','',9);
         $pdf-> MultiCell(75,5,$cupom['REGULAMENTO'],0,1);
 		
+		$pdf-> SetFont('Times','B',9);
 		$pdf-> Cell(30,5,'DESTAQUES: ',0,1);
         $pdf-> SetFont('Times','',9);
         $pdf-> MultiCell(75,5,$cupom['DESTAQUES'],0,1);
