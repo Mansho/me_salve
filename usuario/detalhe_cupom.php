@@ -44,6 +44,6 @@ echo $cupom['TITULO_OFERTA'] . " - " . $cupom['VENCIMENTO'];
 }
 
  ?>    
- <a href="converttopdf.php?id=1">Demo</a>
+ <a href="converttopdf.php?id=<?php echo $_GET[id];?>">Demo</a>
 
    
