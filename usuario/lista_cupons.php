@@ -27,13 +27,13 @@ if (!isCookieSet()) {
 }
 
 //consulta conta registrada do usuario
-$sql = "SELECT *, CUPONS.ID CUPOM, DATE_FORMAT(CUPONS.VENCIMENTO, '%d/%m/%Y %H:%i') VENCIMENTO
+$sql = "SELECT *, CUPONS.ID CUPOM, DATE_FORMAT(OFERTAS.DATA_FIM_VENCIMENTO, '%d/%m/%Y') VENCIMENTO
 		FROM $cupons_table CUPONS, $ofertas_table OFERTAS
 		WHERE CUPONS.USUARIO = " . $_SESSION[conta] . "
 			AND CUPONS.OFERTA = OFERTAS.ID";
 
 if ($_GET['opcao'] == 'disponiveis') {
- $sql .= " AND CUPONS.STATUS = 1";
+ $sql .= " AND CUPONS.STATUS = 1  AND OFERTAS.DATA_FIM_VENCIMENTO >= sysdate()";
 }
 
 if ($_GET['opcao'] == 'usados') {
@@ -41,7 +41,7 @@ if ($_GET['opcao'] == 'usados') {
 }
 
 if ($_GET['opcao'] == 'vencidos') {
- $sql .= " AND CUPONS.STATUS = 3";
+ $sql .= " AND OFERTAS.DATA_FIM_VENCIMENTO < sysdate()";
 }
 
 $result_cupons = $db->query($sql);

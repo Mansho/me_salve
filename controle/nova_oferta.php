@@ -115,7 +115,7 @@ if (isset($_POST[salva_oferta])) {
 	}
 	
 	// Insere os dados no banco
-	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,VALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, '1', '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
+	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,CAMPO_DATA_VALIDADE_FIM,CAMPO_DATA_VALIDADE_INICIOVALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, '1', '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
 	$db->query($sql);
  
 
@@ -175,6 +175,12 @@ echo "	<!DOCTYPE html>
 									campo_data_encerramento:{
 										required: true
 									},
+									campo_data_validade_inicio:{
+										required: true
+									},
+									campo_data_validade_fim:{
+										required: true
+									},
 									campo_valor_real:{
                             			required: true,
 										digits: true
@@ -204,6 +210,12 @@ echo "	<!DOCTYPE html>
 									},
 									campo_data_encerramento:{
 										required: 'Escolha uma data para o encerramento da oferta'
+									},
+									campo_data_validade_inicio:{
+										required: 'Escolha uma data para o inicio da validade do cupom'
+									},
+									campo_data_validade_fim:{
+										required: 'Escolha uma data para o fim da validade do cupom'
 									},
 									campo_valor_real:{
 										required: 'Digite o valor original do produto ou serviço',
@@ -265,11 +277,11 @@ echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" .
 								</div>
 								<div style='position:relative;float:left;width:100%;margin-top:12px'>
 									<div style='position:relative;float:left;width:50%;'>
-										<label for='campo_data_ativacao' class='label_padrao'>Data de Ativação</label>
+										<label for='campo_data_ativacao' class='label_padrao'>Data de Ativação da Oferta</label>
 										<input id='data_ativacao' name='campo_data_ativacao' type='text' class='input_padrao' />
 									</div>
 									<div style='position:relative;float:left;width:50%;'>
-										<label for='campo_data_encerramento' class='label_padrao'>Data de Encerramento</label>
+										<label for='campo_data_encerramento' class='label_padrao'>Data do Fim da Oferta</label>
 										<input id='data_encerramento' name='campo_data_encerramento' type='text' class='input_padrao' />
 									</div>
 								</div>
@@ -289,6 +301,35 @@ echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" .
 										onSelect   : function() { cal.hide() }
     								});
 									cal.manageFields('data_ativacao', 'data_ativacao', '%d-%m-%Y %H:%M');
+									//]]>
+								</script>
+								
+								<div style='position:relative;float:left;width:100%;margin-top:12px'>
+									<div style='position:relative;float:left;width:50%;'>
+										<label for='campo_data_validade_inicio' class='label_padrao'>Início da Validade do Cupom</label>
+										<input id='campo_data_validade_inicio' name='campo_data_validade_inicio' type='text' class='input_padrao' />
+									</div>
+									<div style='position:relative;float:left;width:50%;'>
+										<label for='campo_data_validade_fim' class='label_padrao'>Fim da Validade do Cupom</label>
+										<input id='campo_data_validade_fim' name='campo_data_validade_fim' type='text' class='input_padrao' />
+									</div>
+								</div>
+								
+								<script type='text/javascript'>//<![CDATA[
+    								var cal = Calendar.setup({
+										showTime: true,
+										onSelect   : function() { cal.hide() }
+    								});
+									cal.manageFields('campo_data_validade_inicio', 'campo_data_validade_inicio', '%d-%m-%Y %H:%M');
+									//]]>
+								</script>
+								
+								<script type='text/javascript'>//<![CDATA[
+    								var cal = Calendar.setup({
+										showTime: true,
+										onSelect   : function() { cal.hide() }
+    								});
+									cal.manageFields('campo_data_validade_fim', 'campo_data_validade_fim', '%d-%m-%Y %H:%M');
 									//]]>
 								</script>
 								
