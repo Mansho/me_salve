@@ -216,6 +216,9 @@ echo "									<div style='position:relative;float:left;width:100%;background-co
 															<img src='../imagens/botao_ativar.png' hspace='2' style='cursor:pointer' title='Ativar' onclick=\"display_div('cover','block');display_div('alerta_ativar','block');document.getElementById('id_ativa').value = '" . $oferta['ID'] . "'\" />
 															<img src='../imagens/botao_deletar.png' hspace='2' style='cursor:pointer' title='Apagar' onclick=\"display_div('cover','block');display_div('alerta_apagar','block');document.getElementById('id_apaga').value = '" . $oferta['ID'] . "'\" />";
 												}
+												if ($oferta['STATUS'] == 2) {
+													echo "	<a href='valida_oferta.php?id=" . $oferta['ID'] . "' title='Validar'><img src='../imagens/botao_editar.png' hspace='2' /></a>";															
+												}
 												
 echo "										</div>
 										</div>";
