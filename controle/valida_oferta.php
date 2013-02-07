@@ -44,12 +44,11 @@ $result = $db->query($sql);
 $num_cidades = $db->num_rows($result);
 if ($num_cidades ==1) {
 echo 'cupom validado';
-echo '
- 
-'
+
 }
 else {
 echo 'cupom nao validado';
+
 }
 }
 
@@ -83,6 +82,30 @@ echo "	<!DOCTYPE html>
 					<link rel='stylesheet' type='text/css' href='../css/calendario/win2k/win2k.css' />
 					
 					<style type='text/css'>
+					.window{
+							display:none;
+							width:300px;
+							height:300px;
+							position:absolute;
+							left:0;
+							top:0;
+							background:#FFF;
+							z-index:9900;
+							padding:10px;
+							border-radius:10px;
+						}
+						 
+						#mascara{
+							display:none;
+							position:absolute;
+							left:0;
+							top:0;
+							z-index:9000;
+							background-color:#000;
+						}
+						 
+						.fechar{display:block; text-align:right;}
+						
 						label.error {
 							float:right;
 							font-family:Verdana, Geneva, sans-serif;
@@ -109,9 +132,43 @@ echo "	<!DOCTYPE html>
 					<script type='text/javascript' src='../js/calendario/lang/pt.js'></script>
 					<script type='text/javascript' src='../js/jquery-1.7.1.min.js'></script>
 					<script type='text/javascript' src='../js/jquery_validation/jquery.validate.js'></script>
-					
+					<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js'></script>
 					<script type='text/javascript'>
         				jQuery(document).ready( function() {
+							$(document).ready(function(){
+								$('a[rel=modal]').click( function(ev){
+									ev.preventDefault();
+							 
+									var id = $(this).attr('href');
+							 
+									var alturaTela = $(document).height();
+									var larguraTela = $(window).width();
+								 
+									//colocando o fundo preto
+									$('#mascara').css({'width':larguraTela,'height':alturaTela});
+									$('#mascara').fadeIn(1000);
+									$('#mascara').fadeTo('slow',0.8);
+							 
+									var left = ($(window).width() /2) - ( $(id).width() / 2 );
+									var top = ($(window).height() / 2) - ( $(id).height() / 2 );
+								 
+									$(id).css({'top':top,'left':left});
+									$(id).show();  
+								});
+							 
+								$('#mascara').click( function(){
+									$(this).hide();
+									$('.window').hide();
+								});
+							 
+								$('.fechar').click(function(ev){
+									ev.preventDefault();
+									$('#mascara').hide();
+									$('.window').hide();
+								});
+							});
+						
+						
                 			jQuery('#formNovaOferta').validate({
                     			// Define as regras
                    		 		rules:{
@@ -201,6 +258,36 @@ echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" .
 							
 echo "					</div>
 					</div>
+					<!-- inicio -->	
+		<a href='#janela1' rel='modal'>Janela modal</a>
+		<a href='#janela2' rel	='modal'>Janela 2 modal</a>
+
+
+		<div class='window' id='janela1'>
+			<a href='#' class='fechar'>X Fechar</a>
+			<h4>Cupom Invalido</h4>
+			<p>Este cupom não é valido, para qualquer dúvida estamos à disposição. </p>
+		</div>
+
+		<div class='window' id='janela2'>
+			<a href='#' class='fechar'>X Fechar</a>
+			<h4>Confirmação</h4>
+			<form action='#' method='post'>
+				<p>Voce confirma a utilização deste cupom? </p>
+
+				<input type='submit' value='enviar'>
+
+			</form>
+		</div>
+
+		<!-- mascara para cobrir o site -->	
+		<div id='mascara'></div>
+		
+		<!-- fim -->	
+					
+					
+					
+					
 				</body>
 			</html>";
 
