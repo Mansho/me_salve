@@ -271,6 +271,22 @@ echo "	<!DOCTYPE html>
 							}
 						}
 					</script>
+					
+					<script type='text/javascript'>
+						function insereRegulamento(){						
+							var val = \"<input name='campo_regulamento[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />\";
+							
+							document.getElementById('campos_regulamentos').innerHTML += val;
+						}
+					</script>
+					
+					<script type='text/javascript'>
+						function insereDestaque(){						
+							var val = \"<input name='campo_destque[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />\";
+							
+							document.getElementById('campos_destaques').innerHTML += val;
+						}
+					</script>
 				
 					<!--[if  IE 8]>
 						<style type='text/css'>
@@ -383,12 +399,22 @@ echo "									</select>
 								</div>
 								
 								<div style='position:relative;float:left;width:32.5%;margin-top:24px;margin-right:1%'>
-									<label for='campo_regulamento' class='label_padrao' style='width:99%'>Regulamento</label>
-									<textarea name='campo_regulamento' style='width:99%;height:260px;margin-top:6px'></textarea>
+									<label for='campo_regulamento' class='label_padrao' style='width:99%;'>Regulamento</label>
+									<div id='campos_regulamentos' style='position:relative;float:left;width:100%;'>
+										<input name='campo_regulamento[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />
+										<input name='campo_regulamento[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />
+										<input name='campo_regulamento[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />
+									</div>
+									<input type='button' class='button_padrao' style='width:auto;padding:4px;font-size:1.1em;border-radius:5px;margin-top:6px' value='Adicionar' onclick=\"insereRegulamento();\" />
 								</div>
 								<div style='position:relative;float:left;width:32.5%;margin-top:24px;margin-right:1%'>
-									<label for='campo_destaques' class='label_padrao' style='width:99%'>Destaques</label>
-									<textarea name='campo_destaques' style='width:99%;height:260px;margin-top:6px'></textarea>
+									<label for='campo_destaques' class='label_padrao' style='width:99%;'>Destaques</label>
+									<div id='campos_destaques' style='position:relative;float:left;width:100%;'>
+										<input name='campo_destaque[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />
+										<input name='campo_destaque[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />
+										<input name='campo_destaque[]' type='text' class='input_padrao' style='width:97%;margin:0px;margin-top:4px' />
+									</div>
+									<input type='button' class='button_padrao' style='width:auto;padding:4px;font-size:1.1em;border-radius:5px;margin-top:6px' value='Adicionar' onclick=\"insereDestaque();\" />
 								</div>
 								<div style='position:relative;float:left;width:32.5%;margin-top:24px;'>
 									<label class='label_padrao' style='width:99%'>Fotos</label>

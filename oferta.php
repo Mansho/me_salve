@@ -52,7 +52,6 @@ $result_ofertas = $db->query($sql);
 
 $result_oferta_principal = $db->query($sql_principal);
 $principal=$db->fetch_array($result_oferta_principal);
-echo $principal['ID'];
 
 echo "	<!DOCTYPE html>
 			<html>
@@ -118,7 +117,9 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 											
 											<div style='position:relative;float:left;width:100%;text-align:center'>
 												<div class='externo_botao'>
-													<div class='botao_compra'>COMPRAR</div>
+													<a href='usuario/compra.php?id=" . $principal['ID'] . "'>
+														<div class='botao_compra'>COMPRAR</div>
+													</a>
 												</div>
 											</div>
 											
@@ -179,11 +180,9 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 echo "						</div>";
 
 							$num_ofertas = $db->num_rows($result_ofertas);
-							echo "num ofertas".$num_ofertas;
 							if ($num_ofertas>=3) {
 								
 								for($j=3;$j<$num_ofertas;$j++){
-									echo "teste";
 									$oferta = $db->fetch_array($result_ofertas);
 									
 									echo "	<div class='caixa_oferta_inf'>

@@ -177,6 +177,16 @@ echo "	</div>
 							Você não tem permissão para acessar essa página
 						</div>";
                 break;
+			case("16"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							Dados cadastrados alterados com sucesso
+						</div>";
+                break;
+			case("17"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							Oferta não encontrada, tente novamente.
+						</div>";
+                break;
             default:
                 break;
         }
