@@ -33,7 +33,7 @@ $sql = "SELECT *, CUPONS.ID CUPOM, DATE_FORMAT(OFERTAS.DATA_FIM_VENCIMENTO, '%d/
 			AND CUPONS.OFERTA = OFERTAS.ID";
 
 if ($_GET['opcao'] == 'disponiveis') {
- $sql .= " AND CUPONS.STATUS = 1  AND OFERTAS.DATA_FIM_VENCIMENTO >= sysdate()";
+ $sql .= " AND CUPONS.STATUS = 1";
 }
 
 if ($_GET['opcao'] == 'usados') {
@@ -41,7 +41,7 @@ if ($_GET['opcao'] == 'usados') {
 }
 
 if ($_GET['opcao'] == 'vencidos') {
- $sql .= " AND OFERTAS.DATA_FIM_VENCIMENTO < sysdate()";
+ $sql .= " AND CUPONS.STATUS = 3";
 }
 
 $result_cupons = $db->query($sql);

@@ -87,9 +87,29 @@ if (isset($_POST[salva_oferta])) {
 		header("Location: nova_oferta.php?error=3");
        	exit;
 	}
+	
+	if (($campo_data_validade_inicio < $now) || ($campo_data_validade_fim < $now)){
+		header("Location: nova_oferta.php?error=18");
+       	exit;
+	}
 		
 	if ($campo_data_ativacao > $campo_data_encerramento){
 		header("Location: nova_oferta.php?error=4");
+       	exit;
+	}
+	
+	if ($campo_data_validade_inicio > $campo_data_validade_fim){
+		header("Location: nova_oferta.php?error=19");
+       	exit;
+	}
+	
+	if (($campo_data_validade_inicio < $campo_data_ativacao) || ($campo_data_validade_fim <= $campo_data_ativacao)){
+		header("Location: nova_oferta.php?error=20");
+       	exit;
+	}
+	
+	if ($campo_data_validade_fim <= $campo_data_encerramento){
+		header("Location: nova_oferta.php?error=21");
        	exit;
 	}
 	
@@ -131,7 +151,7 @@ if (isset($_POST[salva_oferta])) {
 	}
 	
 	// Insere os dados no banco
-	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,DATA_INICIO_VENCIMENTO,DATA_FIM_VENCIMENTO,VALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, $_SESSION[conta], '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$campo_data_validade_inicio2', '$campo_data_validade_fim2',  '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
+	$sql = "INSERT INTO $ofertas_table(ID,CONTA_EMPRESA,STATUS,DATA_CRIACAO,DATA_ATIVACAO,DATA_ENCERRAMENTO,DATA_INICIO_VENCIMENTO,DATA_FIM_VENCIMENTO,VALOR_REAL,VALOR_DESCONTO,MINIMO_CUPONS,MAXIMO_CUPONS,CUPONS_USUARIO,CUPONS_COMPRADOS,REGIAO,TITULO_OFERTA,FOTO1,FOTO2,FOTO3,REGULAMENTO,DESTAQUES) VALUES (NULL, $_SESSION[conta], '1', '$now2', '$campo_data_ativacao2', '$campo_data_encerramento2', '$campo_data_validade_inicio2', '$campo_data_validade_fim2',  '$_POST[campo_valor_real]', '$_POST[campo_valor_desconto]', '$_POST[campo_minimo_cupons]', '$_POST[campo_maximo_cupons]', '$_POST[campo_cupons_usuario]', '0', '$_POST[campo_regiao]', '$_POST[campo_titulo]', '$foto1', '$foto2', '$foto3', 'teste', 'teste2')";
 	$db->query($sql);
  
 
@@ -214,6 +234,11 @@ echo "	<!DOCTYPE html>
                             			required: true,
 										digits: true
                         			},
+									campo_cupons_usuario:{
+                            			required: true,
+										digits: true,
+										min: 1
+                        			},
 									campo_regiao:{
                             			required: true
                         			}
@@ -250,6 +275,11 @@ echo "	<!DOCTYPE html>
 										required: 'Digite o número máximo de cupons que poderão ser adquiridos',
 										digits: 'Digite apenas números'
 									},
+									campo_cupons_usuario:{
+                            			required: 'Digite o número máximo de cupons que o usuário poderá adquirir',
+										digits: 'Digite apenas números',
+										min: 'O mínimo de cupons por usuário é 1'
+                        			},
 									campo_regiao:{
                             			required: 'Escolha a região da oferta'
                         			}
@@ -387,8 +417,12 @@ echo "					<form id='formNovaOferta' name='reg_oferta' method='post' action='" .
 								</div>
 								<div style='position:relative;float:left;width:100%;margin-top:24px'>
 									<div style='position:relative;float:left;width:50%;'>
+										<label for='campo_cupons_usuario' class='label_padrao'>Cupons por Usuário</label>
+										<input id='cupons_usuario' name='campo_cupons_usuario' type='text' class='input_padrao' />
+									</div>
+									<div style='position:relative;float:left;width:50%;'>
 										<label for='campo_regiao' class='label_padrao'>Região</label>
-										<select name='campo_regiao' type='text' class='input_padrao' />
+										<select name='campo_regiao' type='text' class='input_padrao' style='width:57%'/>
 											<option value=''></value>";
 											for($j=0;$j<$num_cidades;$j++){
 												$row = $db->fetch_array($list_cidades);

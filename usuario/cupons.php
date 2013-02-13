@@ -109,8 +109,27 @@ echo "	<!DOCTYPE html>
 					</script>
 					
 					<script type='text/javascript'>
-						function display_div(div,estado){
+						function display_div(div,estado) {
 							document.getElementById(div).style.display = estado;
+						}
+					</script>
+					
+					<script>
+						function printpage() {
+							var oPrint, oJan;
+							
+							document.getElementById('fechar_cupom').style.display = 'none';
+							document.getElementById('print_cupom').style.display = 'none';
+							
+							oPrint = window.document.getElementById('exibe_cupom').innerHTML;
+							oJan = window.open('ocumpom.php');
+							oJan.document.write(oPrint);
+							oJan.window.print();
+       						oJan.document.close();
+      						oJan.focus();
+							
+							document.getElementById('fechar_cupom').style.display = 'block';
+							document.getElementById('print_cupom').style.display = 'block';
 						}
 					</script>
 				
@@ -123,7 +142,7 @@ echo "	<!DOCTYPE html>
 				
 				<body onload='alturaCover()'>
 			
-					<div id='cover' style='position:absolute;float:left;width:100%;height:400px;z-index:70;background-color:#6A0000;display:none;opacity:0.95;'></div>
+					<div id='cover' style='position:absolute;float:left;width:100%;height:400px;z-index:70;background-color:#6A0000;display:none;opacity:0.95;' onclick=\"display_div('cover','none'),display_div('exibe_cupom','none')\"></div>
 				
 					<div id='exibe_cupom' class='caixa_cupom'></div>
 				

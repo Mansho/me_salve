@@ -285,7 +285,7 @@ echo "									</select>
 									</div>
 								</div>
 								<div class='div_campo_titulo' style='width:76%;padding:1.5%;background-position:left;margin-top:24px;text-align:right'>
-									<input id='cadastrar' name='cadastrar' type='submit' class='button_padrao' style='width:auto' value='Cadastrar' />
+									<input id='cadastrar' name='cadastrar' type='submit' class='button_padrao' style='width:auto' value='Salvar' />
 								</div>
 							</form>
 							</div>

@@ -4,10 +4,11 @@
 <file name="registra.php" server="C:/UniServer/www/me_salve/" local="130027736633688027" remote="130027736630000000" />
 <file name="login.php" server="C:/UniServer/www/me_salve/" local="130029281277730823" remote="130029281270000000" />
 <file name="logout.php" server="C:/UniServer/www/me_salve/" local="130023301606469533" remote="130023301600000000" />
-<file name="cupons.php" server="C:/UniServer/www/me_salve/" local="130035326135099174" remote="130035326130000000" />
-<file name="edita_cadastro.php" server="C:/UniServer/www/me_salve/" local="130033501422469765" remote="130033501420000000" />
-<file name="lista_cupons.php" server="C:/UniServer/www/me_salve/" local="130041382317901639" remote="130041382310000000" />
-<file name="detalhe_cupom.php" server="C:/UniServer/www/me_salve/" local="130041382317791633" remote="130041382310000000" />
+<file name="cupons.php" server="C:/UniServer/www/me_salve/" local="130048353849866362" remote="130048353840000000" />
+<file name="edita_cadastro.php" server="C:/UniServer/www/me_salve/" local="130050934704955334" remote="130050934700000000" />
+<file name="lista_cupons.php" server="C:/UniServer/www/me_salve/" local="130050927995711587" remote="130050927990000000" />
+<file name="detalhe_cupom.php" server="C:/UniServer/www/me_salve/" local="130050926904829192" remote="130050926900000000" />
 <file name="converttopdf.php" server="C:/UniServer/www/me_salve/" local="130041382317371609" remote="130041382310000000" />
-<file name="compra.php" server="C:/UniServer/www/me_salve/" local="130047355218968084" remote="130047355210000000" />
+<file name="compra.php" server="C:/UniServer/www/me_salve/" local="130047388528793297" remote="130047388520000000" />
+<file name="ocupom.php" server="C:/UniServer/www/me_salve/" local="130048314305124532" remote="130048314300000000" />
 </dwsync>

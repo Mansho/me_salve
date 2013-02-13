@@ -38,7 +38,9 @@ for($j=0;$j<$num_cidades;$j++){
 echo "<div style='position:relative;float:left;width:100%;height:100px;z-index:30'>
 		<div style='position:absolute;float:left;width:100%;z-index:30'>
 			<div style='position:relative;float:left'>
-				<img src='../imagens/logo1.png'>
+				<a href='../oferta.php'>
+					<img src='../imagens/logo1.png'>
+				</a>
 			</div>
 			
 			<div id='regiao_seleciona' style='position:relative;float:left;width:180px;background-color:#AA0000;border:1px solid #F00;border-radius:6px;color:#FFF;padding:4px;font-size:1.5em;margin-left:16px;margin-top:25px;' onclick=\"display_div('regiao_seleciona','none');display_div('escolhe_regiao','block')\">
@@ -145,17 +147,17 @@ echo "	</div>
                 break;
 			case("7"):
                 echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
-							A largura da imagem não deve ultrapassar 1500 pixels
+							A largura da imagem não deve ultrapassar 408 pixels
 						</div>";
                 break;
 			case("8"):
                 echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
-							Altura da imagem não deve ultrapassar 1800 pixels
+							Altura da imagem não deve ultrapassar 260 pixels
 						</div>";
                 break;
 			case("9"):
                 echo "	<div id='box_error' onclick=\"display_div('box_error','none')\">
-							A imagem deve ter no máximo 100000 bytes
+							A imagem deve ter no máximo 1 MB
 						</div>";
                 break;
 			case("10"):
@@ -196,6 +198,26 @@ echo "	</div>
 			case("17"):
                 echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
 							Oferta não encontrada, tente novamente.
+						</div>";
+                break;
+			case("18"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							As datas de validade do cupom devem ser maiores ou iguais a data atual
+						</div>";
+                break;
+			case("19"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							A data de vencimento do cupom deve ser posterior a data de início para utilização
+						</div>";
+                break;
+			case("20"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							As datas de validade do cupom não podem ser anteriores a data de ativação da oferta
+						</div>";
+                break;
+			case("21"):
+                echo "	<div id='box_error' class='box_error' onclick=\"display_div('box_error','none')\">
+							A data de vencimento do cupom deve ser posterior a data de encerramento da oferta
 						</div>";
                 break;
             default:

@@ -15,11 +15,11 @@ http://www.inkid.net
 function insereImagem($foto) {
 	
 	// Largura máxima em pixels
-	$largura = 1500;
+	$largura = 408;
 	// Altura máxima em pixels
-	$altura = 1800;
+	$altura = 260;
 	// Tamanho máximo do arquivo em bytes
-	$tamanho = 100000;
+	$tamanho = 1000000;
  
    	// Verifica se o arquivo é uma imagem
     if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $foto["type"])){

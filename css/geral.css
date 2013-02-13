@@ -85,6 +85,19 @@ img {
 	float:left;
 	width:65%;
 	height:100%;
+	overflow:hidden;
+}
+
+.img_oferta ul {
+    width: 408px;
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.img_oferta li {
+    float: left;
 }
 
 .caixa_oferta {
@@ -431,15 +444,21 @@ img {
 .caixa_cupom {
 	position:absolute;
 	float:left;
-	width:800px;
-	height:600px;
+	width:720px;
 	z-index:75;
-	background-color:#FFF;
 	display:none;
-	border:1px solid #6A0000;
 	margin-left:50%;
-	left:-400px;
+	left:-360px;
 	margin-top:200px;
+}
+
+.caixa_interna_cupom {
+	position:relative;
+	float:left;
+	width:100%;
+	height:600px;
+	background-color:#FFF;
+	border:1px solid #6A0000;
 	border-radius:3px;
-	padding:4px;
+	padding:1px;
 }

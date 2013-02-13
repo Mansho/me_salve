@@ -64,6 +64,9 @@ echo "	<!DOCTYPE html>
 					
 					<link rel='stylesheet' type='text/css' href='css/geral.css'/>
 					
+					<script type='text/javascript' src='js/jquery-1.7.1.min.js'></script>
+					<script type='text/javascript' src='js/jquery.jcarousel.js'></script>
+					
 					<script type='text/javascript' src='js/countdownpro.js' defer='defer'></script>
 						<meta scheme='countdown1' name='d_before' content=''>
 						<meta scheme='countdown1' name='d_units' content=' DIAS'>
@@ -82,6 +85,18 @@ echo "	<!DOCTYPE html>
 						<meta scheme='countdown1' name='s_unit' content=''>
 						<meta scheme='countdown1' name='s_after' content=''>
 						<meta scheme='countdown1' name='event_msg' content='ENCERRADO'>
+					
+					<script type='text/javascript'>
+						$(function() {
+    						$('.img_oferta').jcarousel({
+								size: 3,
+								scroll: 1,
+        						auto: 3,
+								'animation': 'slow',
+        						wrap: 'circular'
+   							});
+						});
+					</script>
 					
 					<script type='text/javascript'>
 						function display_div(div,estado){
@@ -141,7 +156,12 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 											</div>
 										</div>
 									</div>
-									<div class='img_oferta' style=\"background: url('imagens/fotos/" . $principal['FOTO1'] . "') no-repeat\">
+									<div class='img_oferta'>
+										<ul>
+        									<li><img src='imagens/fotos/" . $principal['FOTO1'] . "' /></li>
+       									 	<li><img src='imagens/fotos/" . $principal['FOTO2'] . "' /></li>
+											<li><img src='imagens/fotos/" . $principal['FOTO3'] . "' /></li>
+   	 									</ul>
 									</div>
 								</div>
 							
@@ -151,29 +171,33 @@ echo "						<div style='position:relative;float:left;width:100%;margin-top:10px;
 									</div>
 								</div>";
 							
-								for($j=0;$j<3;$j++){
+								$num_ofertas = $db->num_rows($result_ofertas);
+								if ($num_ofertas>0) {
+								
+									for($j=0;$j<3;$j++){
 									
-									$oferta = $db->fetch_array($result_ofertas);
+										$oferta = $db->fetch_array($result_ofertas);
 									
-									echo "	<div class='caixa_oferta_lat'>
-												<div style=\"position:relative;float:left;width:100%;height:54%;background: url('imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat;\"></div>
-												<div class='titulo_oferta_menor'>
-													" . substr($oferta['TITULO_OFERTA'], 0, 64) . "
-												</div>
-												<div class='info_caixa_menor'>
-													<div style='position:relative;float:left;width:33%;text-align:center;color:#AE7575;text-decoration:line-through;margin-top:4px'>
-														R$ " . $oferta['VALOR_REAL'] . "
+										echo "	<div class='caixa_oferta_lat'>
+													<div style=\"position:relative;float:left;width:100%;height:54%;background: url('imagens/fotos/" . $oferta['FOTO1'] . "') no-repeat;\"></div>
+													<div class='titulo_oferta_menor'>
+														" . substr($oferta['TITULO_OFERTA'], 0, 64) . "
 													</div>
-													<div style='position:relative;float:left;width:33%;text-align:center;color:#6A0000;margin-top:4px'>
-														R$ " . $oferta['VALOR_DESCONTO'] . "
+													<div class='info_caixa_menor'>
+														<div style='position:relative;float:left;width:33%;text-align:center;color:#AE7575;text-decoration:line-through;margin-top:4px'>
+															R$ " . $oferta['VALOR_REAL'] . "
+														</div>
+														<div style='position:relative;float:left;width:33%;text-align:center;color:#6A0000;margin-top:4px'>
+															R$ " . $oferta['VALOR_DESCONTO'] . "
+														</div>
+														<div style='position:relative;float:left;width:33%;text-align:center'>
+															<a href=oferta.php?id=".$oferta['ID'].">
+																<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
+															</a>
+														</div>
 													</div>
-													<div style='position:relative;float:left;width:33%;text-align:center'>
-													<a href=oferta.php?id=".$oferta['ID'].">
-														<input name='detalhes' type='button' class='button_padrao' value='Detalhes' />
-													</a>
-													</div>
-												</div>
-											</div>";
+												</div>";
+									}
 								
 								}
 							
